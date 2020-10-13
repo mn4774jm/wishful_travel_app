@@ -9,7 +9,13 @@
     <label for="city">City</label>
     <input name="city" id="city" required>
     <label for="state">State</label>
-    <input name="state" id="state" required>
+    <select name="state" id="state" required>
+      {% for state in states %}
+      <option value="{{ state }}" SELECTED>{{ state }}</option>
+      {% endfor %}
+<!--      <option value="test2">Test2</option>-->
+    </select>
     <input type="submit" value="Submit">
   </form>
+
 {% endblock %}
