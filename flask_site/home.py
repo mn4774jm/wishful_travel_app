@@ -12,12 +12,26 @@ bp = Blueprint('home', __name__, url_prefix='/home')
 
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
-
+    posts = ''
     if request.method == 'POST':
         # request.form is a type of dict mapping
-        username = request.form['city']
-        password = request.form['state']
+        city = request.form['city']
+        state = request.form['state']
         db = get_db()
         error = None
 
-    return render_template('home/search.html',states=state_list)
+        if not city:
+            error = 'City is required'
+        elif not state:
+            error = 'State is required'
+
+        if error is None:
+            #TODO city and state information will need to be passed to the db to check for previous entries
+            #TODO if a previous entry is found, data is pull from db and passed. Else, api is called for data
+            posts = 'data would go here'
+
+            # return redirect(url_for('home.search'))
+
+    return render_template('home/search.html',states=state_list, posts=posts.split())
+
+
