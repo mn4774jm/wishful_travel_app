@@ -2,3 +2,11 @@ env
 *.pyc
 __pycachche__
 .idea
+venv/
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+.egg-info/
