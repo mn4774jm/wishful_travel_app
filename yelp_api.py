@@ -2,10 +2,11 @@
 import os
 import requests
 
+feedback = ''
+
 def get_user_feedback(): 
     #checking user input
     try:
-        feedback = ''
         while not feedback:    
             feedback = input('What type of resturants? ')
             print(feedback)
