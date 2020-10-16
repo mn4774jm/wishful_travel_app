@@ -8,7 +8,7 @@ def get_user_feedback():
     #checking user input
     try:
         while not feedback:    
-            feedback = input('What type of resturants? ')
+            feedback = input('What type of restaurants? ')
             print(feedback)
     except:
         print(f'User entered incorrected information"{feedback}".')
@@ -19,7 +19,7 @@ YELP_API_KEY = os.environ.get('YELP_API_KEY')
 headers = {'Authorization': 'Bearer' + YELP_API_KEY}
 parameters = {
     'term' : feedback,
-    'categories' : 'resturants',
+    'categories' : 'restaurants',
     'location': 'Chicago,IL',
     'radius': '20000',
     'limit': 50}  
