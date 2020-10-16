@@ -1,5 +1,4 @@
 import os
-
 from flask import Flask
 
 def create_app(test_config=None):
@@ -7,6 +6,7 @@ def create_app(test_config=None):
     # name is current module. Used to set up additional paths.
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
+        # used for security during development. randomized password would be used for production
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'travel.sqlite')
     )
@@ -39,6 +39,9 @@ def create_app(test_config=None):
 
     from . import auth
     app.register_blueprint(auth.bp)
+
+    # from . import dining
+    # app.register_blueprint(dining.bp)
 
 
     return app
