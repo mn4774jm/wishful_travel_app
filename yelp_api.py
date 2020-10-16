@@ -25,7 +25,7 @@ parameters = {
     'limit': 50}  
 
 #Make a request to the yelp API
-response = requests.get(yelp_url, headers=headers, params=parameters).json(0)
+response = requests.get(yelp_url, headers=headers, params=parameters).json()
 resturants = response['businesses']
 
 for rs in resturants:
