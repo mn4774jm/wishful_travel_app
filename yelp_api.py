@@ -2,35 +2,37 @@
 import os
 import requests
 
-def get_user_feedback(): 
-    #checking user input
-    try:
-        feedback = ''
-        while not feedback:    
-            feedback = input('What type of resturants? ')
-            print(feedback)
-    except:
-        print(f'User entered incorrected information"{feedback}".')
-
 #fetching data from yelp location API
 yelp_url = 'https://api.yelp.com/v3/businesses/search'
+
+#Get the key from the environment varialbles
 YELP_API_KEY = os.environ.get('YELP_API_KEY')
-headers = {'Authorization': 'Bearer' + YELP_API_KEY}
-parameters = {
-    'term' : feedback,
-    'categories' : 'resturants',
-    'location': 'Chicago,IL',
-    'radius': '20000',
-    'limit': 50}  
 
-#Make a request to the yelp API
-response = requests.get(yelp_url, headers=headers, params=parameters).json(0)
-resturants = response['businesses']
+def get_restaurants_for_location(location):
 
-for rs in resturants:
-    name = rs['name']
-    rating = rs['rating']
-    location = rs['location']
-    address =  ','.join(location['display_address'])
+    query_params =  {'access_key': YELP_API_KEY, 'businesses':location}
+        if query_params:
+            print(query_params)
+        
+        else:
+            print('not found') 
+    #Make a request to the yelp API
+    #Convert JSON response to Python dictionary
+    response = requests.get(yelp_url, params=query_params).json()
 
-    print(f'{name}, {rating}, {address}')
+    print(response)
+
+    resturants = response['businesses'] #results is a list 
+
+    for rs in resturants:
+        name = rs['name']
+        rating = rs['rating']
+        location = rs['location']
+        address =  ','.join(location['display_address'])
+
+        print(f'{name}, {rating}, {address}')
+
+
+if __name__ == '__main__':
+    restaurants = get_restaurants_for_location('Chicago,IL') # change to different locations as needed 
+    print(restaurants)
