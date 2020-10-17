@@ -10,8 +10,8 @@ def get_user_feedback():
         while not feedback:    
             feedback = input('What type of restaurants? ')
             print(feedback)
-    except:
-        print(f'User entered incorrected information"{feedback}".')
+    except Exception as e:
+        print('User entered incorrected information', e)
 
 #fetching data from yelp location API
 yelp_url = 'https://api.yelp.com/v3/businesses/search'
