@@ -1,11 +1,9 @@
 #Import modules
 import requests
-
 import os
 
 #fetching data from yelp location API
 yelp_url = 'https://api.yelp.com/v3/businesses/search'
-
 
 #Get the key from the environment varialbles
 YELP_API_KEY = os.environ.get('YELP_API_KEY')
