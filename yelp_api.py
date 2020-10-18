@@ -13,11 +13,11 @@ def get_restaurants_for_location(location):
     headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
     query_params =  {'term': YELP_API_KEY, 'businesses': location}
 
-        if query_params == 'term' and query_params == 'businesses':
-            print('Found')
-        else:
-            print('Not found') 
-    
+    if query_params == 'term' and query_params == 'businesses':
+        print('Found')
+    else:
+        print('Not found') 
+
     #Make a request to the yelp API
     #Convert JSON response to Python dictionary
     response = requests.get(yelp_url, params=query_params, headers=headers).json()
