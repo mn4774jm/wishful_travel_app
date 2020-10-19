@@ -5,8 +5,13 @@ import os
 #fetching data from yelp location API
 yelp_url = 'https://api.yelp.com/v3/businesses/search'
 
-#Get the key from the environment varialbles
-YELP_API_KEY = os.environ.get('YELP_API_KEY')
+#Get the key from the environment varialble
+try:
+    YELP_API_KEY = os.environ.get('YELP_API_KEY')
+except KeyError:
+    print("""
+    An environment variable called YELP_API_KEY must be set containing the location
+    of the yelp api key""")
 
 def get_restaurants_for_location(location):
     
