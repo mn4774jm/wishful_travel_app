@@ -1,0 +1,32 @@
+<!doctype html>
+<!--Block title will change based on title displayed in browser window-->
+<title>{% block title %}{% endblock %} - Wishful Thinking Travel</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>Wishful Thinking Travel</h1>
+  <ul>
+<!--      href provides links to other pages-->
+<!--      TODO: decide whether to use separate pages for info or just put it all on the front page-->
+    {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('home.search') }}">City Information</a>
+      <li><a href="{{ url_for('home.dining') }}">Dining</a>
+      <li><a href="{{ url_for('home.search') }}">Directions</a>
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+</nav>
+<section class="content">
+  <header>
+<!--      changes title of page-->
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+<!--    Content of each page goes here-->
+  {% block content %}{% endblock %}
+</section>

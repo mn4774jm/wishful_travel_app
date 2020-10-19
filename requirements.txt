@@ -1,5 +1,41 @@
+# create and activate env using:
+# For windows:
+# python -m venv env
+# env\Scripts\activate
+#
+# For mac/linux:
+# python3 -m venv env
+# source env/bin/activate
+#
+# Install requirements and set-up environment
+# 1) run pip install -r requirements.txt for windows or run pip3 install -r requirements.txt
+#
+# enter development environment
+# Windows
+# 1) set FLASK_APP=flask_site
+# 2) set FLASK_ENV=development
+# 3) flask run
+#
+# Mac/Linux:
+# 1) export FLASK_APP=flask_site in terminal
+# 2) export FLASK_ENV=development in terminal
+# 3) flask run to run locally (must be running in development to run locally)
+# 127.0.0.1:5000/home/search
+#
+# Database initialization
+# 1) flask init-db from root
+
 certifi==2020.6.20
 chardet==3.0.4
 idna==2.10
 requests==2.24.0
 urllib3==1.25.10
+
+pip~=20.1.1
+py~=1.9.0
+lxml~=4.5.2
+setuptools~=47.1.0
+click~=7.1.2
+Flask~=1.1.2
+Werkzeug~=1.0.1
+
