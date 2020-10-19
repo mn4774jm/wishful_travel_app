@@ -7,30 +7,30 @@ yelp_url = 'https://api.yelp.com/v3/businesses/search'
 
 #Get the key from the environment varialble
 
-YELP_API_KEY = os.environ.get('YELP_API_KEY')
+YELP_API_KEY = os.environ.get('YELP_API_KY')
 print(YELP_API_KEY)
 
+#Make a request to the yelp API and convert JSON response to Python dictionary
 def get_restaurants_for_location(term, location):
+    
     if YELP_API_KEY is None:
-        print('No yelp api found')
+        print('No yelp api key found')
     else:
         headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
         query_params =  {'term': term ,'categories': 'restaurants', 'location': location, 'radius': 10000, 'limit': 20}
         
-        #Make a request to the yelp API
-        #Convert JSON response to Python dictionary
         try:
             response = requests.get(yelp_url, params=query_params, headers=headers).json()
             # print(response)
             restaurants = response['businesses'] #results is a list 
 
-                # for r in restaurants:
-                #     name = r['name']
-                #     rating = r['rating']
-                #     location = r['location']
-                #     address =  ','.join(location['display_address'])
+            for r in restaurants:
+                    name = r['name']
+                    rating = r['rating']
+                    location = r['location']
+                    address =  ','.join(location['display_address'])
                 
-                #     print(f'{name}, {rating}, {address}')
+                    print(f'{name}, {rating}, {address}')
             return restaurants
         
         except AssertionError as e:
