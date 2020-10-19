@@ -13,7 +13,6 @@
       {% for state in states %}
       <option value="{{ state }}" SELECTED>{{ state }}</option>
       {% endfor %}
-<!--      <option value="test2">Test2</option>-->
     </select>
     <input type="submit" value="Submit">
   </form>
@@ -22,5 +21,9 @@
   {% for post in posts %}
   {{ post }}
   {% endfor %}
+    <ul>
+    <li><a href={{ hyperlink }}>More info</a>
+    </li>
+    </ul>
 </form>
 {% endblock %}
