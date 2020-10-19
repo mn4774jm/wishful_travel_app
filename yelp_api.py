@@ -16,7 +16,7 @@ except KeyError:
 def get_restaurants_for_location(location):
     
     headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
-    query_params =  {'term': 'restaurants', 'location': 'Montana'}
+    query_params =  {'term': 'restaurants', 'location': location}
 
     if query_params == 'term' and query_params == 'businesses':
         print('Found')
@@ -40,5 +40,5 @@ def get_restaurants_for_location(location):
 
 
 if __name__ == '__main__':
-    restaurants = get_restaurants_for_location('Montana, MT') # change to different locations as needed 
+    restaurants = get_restaurants_for_location('Minneapolis, MN') # change to different locations as needed 
     print(restaurants)
