@@ -11,6 +11,7 @@ from flask_site.db import get_db
 
 bp = Blueprint('home', __name__, url_prefix='/home')
 
+
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
 
@@ -27,13 +28,16 @@ def search():
             error = 'State is required'
 
         if error is None:
+            #TODO exception handling for data returned from wiki api
             page_id, page_data = get_city_info(city, state)
             session_url = get_page_url(page_id)
             if page_id is not False:
                 return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city,
                                        hyperlink=session_url)
+            else:
+                return render_template('home/search.html', states=state_list, posts='No data available'.split())
 
-    return render_template('home/search.html', states=state_list, posts='No data available'.split())
+    return render_template('home/search.html', states=state_list)
 
 
 @bp.route('/dining', methods=('GET', 'POST'))
