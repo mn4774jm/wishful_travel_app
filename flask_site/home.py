@@ -33,7 +33,7 @@ def search():
             session_url = get_page_url(page_id)
             if page_id is not False:
                 return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city,
-                                       hyperlink=session_url)
+                                       hyperlink=session_url, hypertitle='More Info')
             else:
                 return render_template('home/search.html', states=state_list, posts='No data available'.split())
 
