@@ -1,5 +1,5 @@
 from states import state_list
-from wiki_api import get_city_info, get_page_url
+from API.wiki_api import get_city_info, get_page_url
 from flask import Blueprint, render_template, request
 from flask_site.db import get_db
 
