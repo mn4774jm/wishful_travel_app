@@ -13,15 +13,13 @@ bp = Blueprint('home', __name__, url_prefix='/home')
 
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
-    city = ''
-    state = ''
+
     if request.method == 'POST':
         # request.form is a type of dict mapping
         city = request.form['city']
         state = request.form['state']
         db = get_db()
         error = None
-
 
         if not city:
             error = 'City is required'
@@ -31,14 +29,12 @@ def search():
         if error is None:
             page_id, page_data = get_city_info(city, state)
             session_url = get_page_url(page_id)
-            return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city,
-                                   hyperlink=session_url)
+            if page_id is not False:
+                return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city,
+                                       hyperlink=session_url)
 
-    page_id, page_data = get_city_info(city, state)
-    session_url = get_page_url(page_id)
-    #TODO set up conditional logic for when get_city_info returns false
+    return render_template('home/search.html', states=state_list, posts='No data available'.split())
 
-    return render_template('home/search.html',states=state_list, posts=page_data.split(), city_name=city, hyperlink=session_url)
 
 @bp.route('/dining', methods=('GET', 'POST'))
 def dining():

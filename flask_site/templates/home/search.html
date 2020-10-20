@@ -21,9 +21,6 @@
   {% for post in posts %}
   {{ post }}
   {% endfor %}
-    <ul>
-    <li><a href={{ hyperlink }}>More info</a>
-    </li>
-    </ul>
+    <a href={{ hyperlink }}>{{ hyperlink }}</a>
 </form>
 {% endblock %}
