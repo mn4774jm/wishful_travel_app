@@ -1,14 +1,10 @@
 from states import state_list
 from wiki_api import get_city_info, get_page_url
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from flask_site.auth import login_required
+from flask import Blueprint, render_template, request
 from flask_site.db import get_db
 
+# Blueprint is used by __init__.py to import the page renderings into the app
+# Also used to set up the url
 bp = Blueprint('home', __name__, url_prefix='/home')
 
 
@@ -29,13 +25,15 @@ def search():
 
         if error is None:
             #TODO exception handling for data returned from wiki api
+            #TODO call to db to check for previous entry before consulting the api
+            #TODO when no data is found from wiki api, 'extract' is the only thing returned.
             page_id, page_data = get_city_info(city, state)
             session_url = get_page_url(page_id)
             if page_id is not False:
                 return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city,
                                        hyperlink=session_url, hypertitle='More Info')
             else:
-                return render_template('home/search.html', states=state_list, posts='No data available'.split())
+                return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
 
     return render_template('home/search.html', states=state_list)
 
@@ -62,7 +60,5 @@ def dining():
             #TODO city and state information will need to be passed to the db to check for previous entries
             #TODO if a previous entry is found, data is pull from db and passed. Else, api is called for data
             posts = 'Data would go here; Can be split by section in html'
-
-            # return redirect(url_for('home.search'))
 
     return render_template('home/dining.html', states=state_list, posts=posts.split())
