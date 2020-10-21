@@ -33,4 +33,12 @@
   {% endfor %}
     </ul>
 </form>
+<form>
+  <h1>{{ dir_banner }}</h1>
+  <ul>
+  {% for dir in routes %}
+    <li>{{ dir }}</li>
+  {% endfor %}
+    </ul>
+</form>
 {% endblock %}
