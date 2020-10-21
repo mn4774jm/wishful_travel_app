@@ -12,19 +12,21 @@
     <label for="state">State</label>
     <select name="state" id="state" required>
       {% for state in states %}
-      <option value="{{ state }}" SELECTED>{{ state }}</option>
+      <option value="{{ state }}">{{ state }}</option>
       {% endfor %}
       </select>
 
-    <label for="category">What are you hungry for?</label>
-    <input name="category" id="category" required>
+    <label for="term">What are you hungry for?</label>
+    <input name="term" id="term" required>
 
     </select>
     <input type="submit" value="Submit">
   </form>
 <form>
+  <ul>
   {% for post in posts %}
-  {{ post }}
+    <li>{{ post }}</li>
   {% endfor %}
+    </ul>
 </form>
 {% endblock %}
