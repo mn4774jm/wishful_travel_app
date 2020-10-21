@@ -83,6 +83,10 @@ def get_directions(start, end):
         #     print(f'{count}. {direction} | {distance} miles.')
         #     count += 1
 
+# general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
+# general_coordinates_2 = get_general_location_coordinates('Wisconsin', 'Green bay')
+# print(get_directions(general_coordinates_1, general_coordinates_2))
+
 
 
 """

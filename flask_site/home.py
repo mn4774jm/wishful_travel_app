@@ -41,7 +41,7 @@ def search():
 
             if page_id is not False and posts is not None and start is not None and end is not None:
                 # perfect world rendering. Runs when data is returned correctly.
-                return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city,
+                return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
                                        hyperlink=session_url, hypertitle='More Info', food=res_list,
                                        res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
 
