@@ -4,7 +4,7 @@ from API.yelp_api import get_restaurants_for_location
 from API.ors_api import get_general_location_coordinates, get_location_coordinates, get_directions
 from flask import Blueprint, render_template, request
 from flask_site.db import get_db
-from helper_functions import restaurant_formatter, direction_formatting
+from helper_functions import restaurant_formatter, direction_formatting, address_getter
 
 # Blueprint is used by __init__.py to import the page renderings into the app
 # Also used to set up the url
@@ -35,7 +35,8 @@ def search():
             posts = get_restaurants_for_location(f'{city},{state}')
             res_list = restaurant_formatter(posts)
             general = get_general_location_coordinates(state,city)
-            end = get_location_coordinates(posts[0]['location'],state,general)
+            # address = address_getter(posts)
+            end = get_location_coordinates(address_getter(posts),state,general)
             route = get_directions(end)
             directions = direction_formatting(route)
 
