@@ -33,8 +33,8 @@ def get_restaurants_for_location(term, location):
                     print(f'{name}, {rating}, {address}')
             return restaurants
         
-        except AssertionError as e:
-            print('Requests.get() function was not executed')
+        except Exception as e:
+            print(e, mgs='error can not request')
 
 # if __name__ == '__main__':
 #     restaurants = get_restaurants_for_location('pizza','New York City, NY') # change to different locations as needed 
