@@ -19,6 +19,7 @@ def get_city_info(city, state):
         data = requests.get(url, params=query).json()
         page_data = data['query']['pages']
         page_id = list(page_data.keys())
+        print(page_id[0], page_data[f'{page_id[0]}']['extract'])
         return (page_id[0], page_data[f'{page_id[0]}']['extract'])
     except KeyError as err:
         return False, err
@@ -33,3 +34,4 @@ def get_page_url(page_id):
         return (data['query']['pages'][f'{page_id}']['fullurl'])
     except KeyError as err:
         return False
+get_city_info('castle danger', 'Minnesota')

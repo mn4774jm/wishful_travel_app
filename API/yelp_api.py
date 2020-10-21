@@ -8,14 +8,15 @@ yelp_url = 'https://api.yelp.com/v3/businesses/search'
 #Get the key from the environment varialble
 
 YELP_API_KEY = os.environ.get('YELP_API_KEY')
-print(YELP_API_KEY)
+# print(YELP_API_KEY)
 
-def get_restaurants_for_location(term, location):
+def get_restaurants_for_location(location):
+    YELP_API_KEY = 'zwNR-_GO-ShcVj2Gc9RheHSCG4rIitXhhm5juTyEGBFExzJzxqebyhcy6wQbkMSxAO-sUzLO3RO88c86jqTn87v7Q5e4X8XgNY7Abn2-B8SK3jwFg8d9LXllPdeBX3Yx'
     if YELP_API_KEY is None:
         print('No yelp api found')
     else:
         headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
-        query_params =  {'term': term ,'categories': 'restaurants', 'location': location, 'radius': 10000, 'limit': 20}
+        query_params =  {'categories': 'restaurants', 'location': location, 'rating':5, 'radius': 10000, 'limit': 10}
         
         #Make a request to the yelp API
         #Convert JSON response to Python dictionary
@@ -37,6 +38,7 @@ def get_restaurants_for_location(term, location):
             print('Requests.get() function was not executed')
 
 # if __name__ == '__main__':
-#     restaurants = get_restaurants_for_location('pizza','New York City, NY') # change to different locations as needed 
+#     restaurants = get_restaurants_for_location('pizza','New York City, NY') # change to different locations as needed
 #     #print(restaurants)
+
     
