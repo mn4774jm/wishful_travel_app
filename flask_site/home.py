@@ -34,12 +34,12 @@ def search():
             session_url = get_page_url(page_id)
             posts = get_restaurants_for_location(f'{city},{state}')
             res_list = restaurant_formatter(posts)
-            start = get_general_location_coordinates('Minnesota', 'Minneapolis')
-            end = get_general_location_coordinates(state,city)
-            route = get_directions(start, end)
+            general = get_general_location_coordinates(state,city)
+            end = get_location_coordinates(posts[0]['location'],state,general)
+            route = get_directions(end)
             directions = direction_formatting(route)
 
-            if page_id is not False and posts is not None and start is not None and end is not None:
+            if page_id is not False and posts is not None and end is not None:
                 # perfect world rendering. Runs when data is returned correctly.
                 return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
                                        hyperlink=session_url, hypertitle='More Info', food=res_list,

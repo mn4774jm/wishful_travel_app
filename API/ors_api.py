@@ -36,13 +36,10 @@ def get_general_location_coordinates(state, city):
             query_paramaters = {'api_key': ors_key, 'country': country, 'region': state, 'locality': city}
             query = requests.get(structured_geosearch_URL, params=query_paramaters).json()
             general_coordinates = query['features'][0]['geometry']['coordinates']
-            general_coordinates = f'{str(general_coordinates[0])},{str(general_coordinates[1])}'
-            print(general_coordinates)
             return general_coordinates
 
         except:
             print('Error: Location not found')
-            return None
 
 # Get hopefully more specific coordinates on a location, using coordinates obtained from the above method along with the entered place
 # and state. If a combination of the two geosearches existed in ors, it would saved a number of steps. Similar to above, the only
@@ -64,7 +61,8 @@ def get_location_coordinates(place, state, general_coordinates):
 
 
 # Uses coordinates for both the beginning and ending locations to retreive and display directions to travel from point A to point B.
-def get_directions(start, end):
+def get_directions(end):
+    start = '-93.278494,44.941691'
     try:
         query_parameters = {'api_key': ors_key, 'start': start, 'end': end}
         query = requests.get(directions_URL, params=query_parameters).json()
@@ -84,9 +82,13 @@ def get_directions(start, end):
         #     count += 1
 
 # general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
+# print(general_coordinates_1)
 # general_coordinates_2 = get_general_location_coordinates('Wisconsin', 'Green bay')
 # print(get_directions(general_coordinates_1, general_coordinates_2))
 
+general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
+specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
+print(specific_coordinates_1)
 
 
 """
@@ -94,7 +96,7 @@ def get_directions(start, end):
 Basic code used to test the program while working on it, feel free to plug in your own data
 
 
-general_coordinates_1 = get_general_location_coordinates('minnesota', 'mounds view')
+general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
 specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
 
 general_coordinates_2 = get_general_location_coordinates('minnesota', 'minneapolis')

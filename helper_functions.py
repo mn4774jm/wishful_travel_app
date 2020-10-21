@@ -20,3 +20,5 @@ def direction_formatting(steps):
         dir_list.append(temp_string)
         count += 1
     return dir_list
+
+
