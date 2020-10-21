@@ -1,15 +1,19 @@
 import unittest
 from unittest import TestCase
+from unittest.mock import patch
 
-import yelp
+import yelp_api
 
-class YelpapiTest(TestCase):
+class TestYelpApi(unittest.TestCase):
 
-    def test_yelp_api_for_location(self):
-        correct_location = yelp.restaurants_for_location('New York City', True)
-        expected_location = 'Chicago'
-        self.assertEqual(expected_location,correct_location)
+    def test_get_search_location(self):
+        self.assertEqual('', yelp_api.get_restaurants_for_location('term','location'))# test empty string
+        self.assertEqual('Chicago', yelp_api.get_restaurants_for_location('      Chicago     '))# test for extra spaces
 
+    @patch('yelp_api.get_restaurants_for_location', return_value='nowhere')
+    def test_get_no_restaurants_for_location(self, mock_get_restaurants_for_location):
+        yelp_api.zero_restaurants('', Minneapolis)
+        mock_get_restaurants_for_location.assert_showed()
 
-if if __name__ == "__main__":
-    unittest.main()        
+if __name__ == "__main__":
+     unittest.main()        
