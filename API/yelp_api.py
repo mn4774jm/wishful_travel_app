@@ -23,7 +23,8 @@ def get_restaurants_for_location(location):
         try:
             response = requests.get(yelp_url, params=query_params, headers=headers).json()
             # print(response)
-            restaurants = response['businesses'] #results is a list 
+            restaurants = response['businesses'] #results is a list
+            # print(restaurants)
 
                 # for r in restaurants:
                 #     name = r['name']
@@ -40,5 +41,6 @@ def get_restaurants_for_location(location):
 # if __name__ == '__main__':
 #     restaurants = get_restaurants_for_location('pizza','New York City, NY') # change to different locations as needed
 #     #print(restaurants)
+get_restaurants_for_location('Miami, Florida')
 
     
