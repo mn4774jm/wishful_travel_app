@@ -39,7 +39,7 @@ def search():
             end = get_location_coordinates(address_getter(posts),state,general)
             route = get_directions(end)
             directions = direction_formatting(route)
-
+            #TODO the following conditional doesn't work
             if page_id is not False and posts is not None and end is not None:
                 # perfect world rendering. Runs when data is returned correctly.
                 return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
