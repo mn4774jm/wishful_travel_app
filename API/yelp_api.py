@@ -34,11 +34,11 @@ def get_restaurants_for_location(location):
                 #     print(f'{name}, {rating}, {address}')
             return restaurants
         
-        except AssertionError as e:
-            print('Requests.get() function was not executed')
+        except  Exception as e:
+            print('Requests.get() function was not executed', e)
 
-# if __name__ == '__main__':
-#     restaurants = get_restaurants_for_location('pizza','New York City, NY') # change to different locations as needed
-#     #print(restaurants)
+if __name__ == '__main__':
+    restaurants = get_restaurants_for_location('New York City, NY') # change to different locations as needed
+    print(restaurants)
 
     
