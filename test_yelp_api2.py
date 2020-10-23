@@ -1,10 +1,22 @@
 import unittest
 from unittest import TestCase
 from unittest.mock import patch
+import y_db
 
-import location
 
 class TestYelpApi(unittest.TestCase):
+
+    
+    def setUpClass(cls):
+        y_db = os.path.join('database', 'test_yelp.db')
+        
+    def setUpClass(cls):
+        y_db = os.path.join('database', 'test_yelp.db')
+        Yelp
+
+    def setUpClass(cls):
+        y_db = os.path.join('database', 'test_yelp.db')
+        Yelp
 
     def test_get_search_location(self):
         self.assertEqual('', location.yelp_api(''))# test empty string
