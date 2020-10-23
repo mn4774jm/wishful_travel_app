@@ -37,11 +37,7 @@ def create_app(test_config=None):
     from . import home
     app.register_blueprint(home.bp)
 
-    from . import auth
-    app.register_blueprint(auth.bp)
 
-    # from . import dining
-    # app.register_blueprint(dining.bp)
 
 
     return app
