@@ -21,7 +21,8 @@ geosearch_URL = ('https://api.openrouteservice.org/geocode/search')
 # key, start (long, lat), end (long, lat)
 directions_URL = ('https://api.openrouteservice.org/v2/directions/driving-car')
 
-ors_key = os.environ.get('ORS_API_KEY')
+# ors_key = os.environ.get('ORS_API_KEY')
+ors_key = '5b3ce3597851110001cf6248701a505f4a83471da001d266b2860ac6'
 country = 'usa'
 
 # This method uses the Structured Forward Grocode Service to get the general area of whatever is being searched for, hopefully
@@ -36,7 +37,7 @@ def get_general_location_coordinates(state, city):
             query = requests.get(structured_geosearch_URL, params=query_paramaters).json()
             general_coordinates = query['features'][0]['geometry']['coordinates']
             return general_coordinates
-        
+
         except:
             print('Error: Location not found')
 
@@ -58,31 +59,44 @@ def get_location_coordinates(place, state, general_coordinates):
     except:
         print('Error: Location not found')
 
+
 # Uses coordinates for both the beginning and ending locations to retreive and display directions to travel from point A to point B.
-def get_directions(start, end):
+def get_directions(end):
+    start = '-93.278494,44.941691'
     try:
         query_parameters = {'api_key': ors_key, 'start': start, 'end': end}
         query = requests.get(directions_URL, params=query_parameters).json()
         steps = query['features'][0]['properties']['segments'][0]['steps']
-
-        # For loop to walk through each step of directions
-        count = 1
-        for s in steps:
-            # Convert distances from meters to miles
-            distance = round((s['distance']*3.28)/5280, 2)
-            direction = s['instruction']
-            print(f'{count}. {direction} | {distance} miles.')
-            count += 1
+        return steps
 
     except:
         print('Error: Unable to find path')
+        return None
+        # For loop to walk through each step of directions
+        # count = 1
+        # for s in steps:
+        #     # Convert distances from meters to miles
+        #     distance = round((s['distance']*3.28)/5280, 2)
+        #     direction = s['instruction']
+        #     print(f'{count}. {direction} | {distance} miles.')
+        #     count += 1
+
+# general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
+# print(general_coordinates_1)
+# general_coordinates_2 = get_general_location_coordinates('Wisconsin', 'Green bay')
+# print(get_directions(general_coordinates_1, general_coordinates_2))
+
+general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
+specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
+print(specific_coordinates_1)
+
 
 """
 
 Basic code used to test the program while working on it, feel free to plug in your own data
 
 
-general_coordinates_1 = get_general_location_coordinates('minnesota', 'mounds view')
+general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
 specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
 
 general_coordinates_2 = get_general_location_coordinates('minnesota', 'minneapolis')
