@@ -22,14 +22,17 @@ def direction_formatting(steps):
     return dir_list
 
 
-def address_getter(posts):
+def get_coords(posts):
     address = ''
     count = 0
     for p in posts:
         if count > 0:
             pass
         else:
-            address = p['location']
+            lat = p['coordinates']['latitude']
+            lon = p['coordinates']['longitude']
+            fixed_string = f'{lon},{lat}'
             count += 1
-    return address
+    return fixed_string
+
 
