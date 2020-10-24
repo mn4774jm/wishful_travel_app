@@ -33,7 +33,6 @@ def search():
             error = 'State is required'
 
         if error is None:
-
             cache_data = search_for_city_in_cache(city)
             if cache_data is None:
 
@@ -57,7 +56,6 @@ def search():
                     return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
             else:
                 pass
-
 
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)
