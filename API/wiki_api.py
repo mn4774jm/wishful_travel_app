@@ -25,6 +25,7 @@ def get_city_info(city, state):
         return False, err
 
 
+
 def get_page_url(page_id):
     query = {'action': 'query', 'prop': 'info', 'pageids': f'{page_id}', 'inprop': 'url', 'format': 'json'}
     url = 'https://en.wikipedia.org/w/api.php?'

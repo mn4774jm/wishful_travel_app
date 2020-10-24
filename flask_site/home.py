@@ -36,25 +36,49 @@ def search():
             cache_data = None
             if cache_data is None:
                 page_id, page_data = get_city_info(city, state)
-
-                session_url = get_page_url(page_id)
-                posts = get_restaurants_for_location(f'{city},{state}')
-                data = get_coords(posts)
-                res_list = restaurant_formatter(posts)
-                end = get_general_location_coordinates(state,city)
-                route = get_directions(data)
-                directions = direction_formatting(route)
-
-
-                if page_id is not False and posts is not None and end is not None:
-                    # perfect world rendering. Runs when data is returned correctly.
-                    return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
-                                           hyperlink=session_url, hypertitle='More Info', food=res_list,
-                                           res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
-
+# <<<<<<< HEAD
+#
+#                 session_url = get_page_url(page_id)
+#                 posts = get_restaurants_for_location(f'{city},{state}')
+#                 data = get_coords(posts)
+#                 res_list = restaurant_formatter(posts)
+#                 end = get_general_location_coordinates(state,city)
+#                 route = get_directions(data)
+#                 directions = direction_formatting(route)
+#
+#
+#                 if page_id is not False and posts is not None and end is not None:
+#                     # perfect world rendering. Runs when data is returned correctly.
+#                     return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
+#                                            hyperlink=session_url, hypertitle='More Info', food=res_list,
+#                                            res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
+#
+# =======
+                if page_id == 'KeyError':
+                    return render_template('home/search.html', states=state_list, posts=f'The API was not able to retrieve information \
+                        on {city}, {state}.\nPlease check your spelling.'.split())
+                elif page_id == 'ConnectionError':
+                    return render_template('home/search.html', states=state_list, posts=f'A network issue has occurred, \
+                        please check your connection.'.split())
+# >>>>>>> 600e4dd5a5ee9c7e4458ba9d5c4a91ad46bc5db6
                 else:
-                    # rendering of page when an error occurs in one of the api calls. reports error message to user
-                    return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
+                    session_url = get_page_url(page_id)
+                    posts = get_restaurants_for_location(f'{city},{state}')
+                    data = get_coords(posts)
+                    res_list = restaurant_formatter(posts)
+                    end = get_general_location_coordinates(state,city)
+                    route = get_directions(data)
+                    directions = direction_formatting(route)
+
+                    if page_id is not False and posts is not None and end is not None:
+                        # perfect world rendering. Runs when data is returned correctly.
+                        return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
+                                            hyperlink=session_url, hypertitle='More Info', food=res_list,
+                                            res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
+
+                    else:
+                        # rendering of page when an error occurs in one of the api calls. reports error message to user
+                        return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
             else:
                 pass
 
