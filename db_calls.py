@@ -10,10 +10,14 @@ def search_for_city_in_cache(city):
         # conn.close()
         return data.fetchone()
 
+
 def add_to_cached_data():
     with sqlite3.connect(db_path) as conn:
         conn.execute('insert into cache values (NULL,?,?,?,?)', )
 
+
+
+# Delete when no longer needed
 
 # api_name = 'yelp'
 # city = 'Minneapolis'
