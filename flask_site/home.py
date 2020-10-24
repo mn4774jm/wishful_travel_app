@@ -31,24 +31,32 @@ def search():
             #TODO when no data is found from wiki api, 'extract' is the only thing returned.
             #TODO urls for restaurants are available in the yelp json data. If there is time consider working links in.
             page_id, page_data = get_city_info(city, state)
-            session_url = get_page_url(page_id)
-            posts = get_restaurants_for_location(f'{city},{state}')
-            res_list = restaurant_formatter(posts)
-            general = get_general_location_coordinates(state,city)
-            # address = address_getter(posts)
-            end = get_location_coordinates(address_getter(posts),state,general)
-            route = get_directions(end)
-            directions = direction_formatting(route)
-            #TODO the following conditional doesn't work
-            if page_id is not False and posts is not None and end is not None:
-                # perfect world rendering. Runs when data is returned correctly.
-                return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
-                                       hyperlink=session_url, hypertitle='More Info', food=res_list,
-                                       res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
 
+            if page_id == 'KeyError':
+                return render_template('home/search.html', states=state_list, posts=f'The API was not able to retrieve information \
+                    on {city}, {state}.\nPlease check your spelling.'.split())
+            elif page_id == 'ConnectionError':
+                return render_template('home/search.html', states=state_list, posts=f'A network issue has occurred, \
+                    please check your connection.'.split())
             else:
-                # rendering of page when an error occurs in one of the api calls. reports error message to user
-                return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
+                session_url = get_page_url(page_id)
+                posts = get_restaurants_for_location(f'{city},{state}')
+                res_list = restaurant_formatter(posts)
+                general = get_general_location_coordinates(state,city)
+                # address = address_getter(posts)
+                end = get_location_coordinates(address_getter(posts),state,general)
+                route = get_directions(end)
+                directions = direction_formatting(route)
+                #TODO the following conditional doesn't work
+                if page_id is not False and posts is not None and end is not None:
+                    # perfect world rendering. Runs when data is returned correctly.
+                    return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
+                                        hyperlink=session_url, hypertitle='More Info', food=res_list,
+                                        res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
+
+                else:
+                    # rendering of page when an error occurs in one of the api calls. reports error message to user
+                    return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
 
     # works as the base rendering for the page. Only shows the sumbission fields.
     return render_template('home/search.html', states=state_list)
