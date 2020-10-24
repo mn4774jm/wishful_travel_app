@@ -40,10 +40,8 @@ def search():
                 session_url = get_page_url(page_id)
                 posts = get_restaurants_for_location(f'{city},{state}')
                 data = get_coords(posts)
-                # print(data)
                 res_list = restaurant_formatter(posts)
                 end = get_general_location_coordinates(state,city)
-                # end = get_location_coordinates(address_getter(posts),state,general)
                 route = get_directions(data)
                 directions = direction_formatting(route)
 
