@@ -10,15 +10,15 @@ def search_for_city_in_cache(city):
         # conn.close()
         return data.fetchone()
 
-
-api_name = 'yelp'
-city = 'Minneapolis'
-data = 'I\'m json data!'
-# conn = sqlite3.connect(db_path)
-# conn.execute('insert into cache values (NULL, ?, ?, ?, ?)', (api_name, city, data, datetime.now()))
-# conn.commit()
-new_city = "Minneapolis"
-new_data = search_for_city_in_cache(city)
-for row in new_data:
-    print(row)
-print(new_data)
+# Delete when no longer needed
+# api_name = 'yelp'
+# city = 'Minneapolis'
+# data = 'I\'m json data!'
+# # conn = sqlite3.connect(db_path)
+# # conn.execute('insert into cache values (NULL, ?, ?, ?, ?)', (api_name, city, data, datetime.now()))
+# # conn.commit()
+# new_city = "Minneapolis"
+# new_data = search_for_city_in_cache(city)
+# for row in new_data:
+#     print(row)
+# print(new_data)
