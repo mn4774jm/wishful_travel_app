@@ -1,5 +1,5 @@
 import requests
-
+import json
 """
 Wiki API requests
 
@@ -19,7 +19,8 @@ def get_city_info(city, state):
         data = requests.get(url, params=query).json()
         page_data = data['query']['pages']
         page_id = list(page_data.keys())
-        return (page_id[0], page_data[f'{page_id[0]}']['extract'])
+        new_data = json.dumps(data)
+        return page_id[0], page_data[f'{page_id[0]}']['extract']
     except KeyError as err:
         return False, err
 

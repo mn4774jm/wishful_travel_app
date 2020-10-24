@@ -11,7 +11,6 @@ from flask import Blueprint, render_template, request
 from flask_site.db import get_db
 from helper_functions import restaurant_formatter, direction_formatting, get_coords
 from db_calls import search_for_city_in_cache, add_to_cached_data
-from json import dumps, loads
 
 # Blueprint is used by __init__.py to import the page renderings into the app
 # Also used to set up the url
@@ -33,10 +32,11 @@ def search():
             error = 'State is required'
 
         if error is None:
-            cache_data = search_for_city_in_cache(city)
+
+            cache_data = None
             if cache_data is None:
                 page_id, page_data = get_city_info(city, state)
-                add_to_cached_data('wiki', city, )
+
                 session_url = get_page_url(page_id)
                 posts = get_restaurants_for_location(f'{city},{state}')
                 data = get_coords(posts)
@@ -57,6 +57,7 @@ def search():
                     return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
             else:
                 pass
+
 
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)
