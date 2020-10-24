@@ -21,9 +21,7 @@ def get_city_info(city, state):
         page_id = list(page_data.keys())
         return (page_id[0], page_data[f'{page_id[0]}']['extract'])
     except KeyError as err:
-        return 'KeyError', err
-    except requests.exceptions.ConnectionError as err:
-        return 'ConnectionError', err
+        return False, err
 
 
 def get_page_url(page_id):
