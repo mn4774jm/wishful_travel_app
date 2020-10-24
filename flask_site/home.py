@@ -1,4 +1,3 @@
-#TODO call to cache to check if already in database
 #TODO exception handling for data returned from wiki api
 #TODO call to db to check for previous entry before consulting the api
 #TODO when no data is found from wiki api, 'extract' is the only thing returned.
@@ -35,7 +34,6 @@ def search():
         if error is None:
             cache_data = search_for_city_in_cache(city)
             if cache_data is None:
-
                 page_id, page_data = get_city_info(city, state)
                 session_url = get_page_url(page_id)
                 posts = get_restaurants_for_location(f'{city},{state}')
