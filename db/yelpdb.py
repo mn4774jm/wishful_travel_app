@@ -17,7 +17,7 @@ def create_table():
     conn.close()
 
 #query database to look up information on specific places
-def get_restaurants_for_location(term, location):
+def search_for_restaurants(term, location):
     with sqlite3.connect(db) as conn:
         conn.execute("SELECT * FROM yelp WHERE term=  ?, location=?", (term, location))
         return c.fetchall()
@@ -64,18 +64,18 @@ def update_restaurant():
 
     conn.close(
 
-def delete_state():
-    with sqlite3.connect(db) as conn:
-        conn.execute('DELETE from yelp WHERE name = ? ', (delete_state, ))
-    conn.close()
+# #def delete_state():
+#     with sqlite3.connect(db) as conn:
+#         conn.execute('DELETE from yelp WHERE name = ? ', (delete_state, ))
+#     conn.close()
 
 create_table()
-get_restaurants_for_location()
+search_for_restaurants()
 insert_example_info()
 display_all_data()
-display_one_location()
+display_one_location('Chicago')
 add_new_restaurant()
 update_restaurant()
-remove_state()
+remove_state('Maine')
 
           
