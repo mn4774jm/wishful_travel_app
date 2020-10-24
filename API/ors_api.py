@@ -35,29 +35,28 @@ def get_general_location_coordinates(state, city):
         try:
             query_paramaters = {'api_key': ors_key, 'country': country, 'region': state, 'locality': city}
             query = requests.get(structured_geosearch_URL, params=query_paramaters).json()
-            general_coordinates = query['features'][0]['geometry']['coordinates']
-            return general_coordinates
-
+            coordinates = query['features'][0]['geometry']['coordinates']
+            return f'{str(coordinates[0])},{str(coordinates[1])}'
         except:
             print('Error: Location not found')
 
 # Get hopefully more specific coordinates on a location, using coordinates obtained from the above method along with the entered place
 # and state. If a combination of the two geosearches existed in ors, it would saved a number of steps. Similar to above, the only
 # retreived data is the coordinates, except it returns them sligntly formatted, to remove the brackets for use in getting directions.
-def get_location_coordinates(place, state, general_coordinates):
-    try:
-        # Location paramaters MUST be ordered from smallest to largest area and MUST be combined for the query to function
-        combined_location_terms = f'{place} {state}'
-
-        query_paramaters = {'api_key': ors_key, 'text': combined_location_terms, 'focus.point.lon': general_coordinates[0],
-        'focus.point.lat': general_coordinates[1], 'boundary.country': country}
-
-        query = requests.get(geosearch_URL, params=query_paramaters).json()
-        coordinates = query['features'][0]['geometry']['coordinates']
-        return f'{str(coordinates[0])},{str(coordinates[1])}'
-
-    except:
-        print('Error: Location not found')
+# def get_location_coordinates(place, state, general_coordinates):
+#     try:
+#         # Location paramaters MUST be ordered from smallest to largest area and MUST be combined for the query to function
+#         combined_location_terms = f'{place} {state}'
+#
+#         query_paramaters = {'api_key': ors_key, 'text': combined_location_terms, 'focus.point.lon': general_coordinates[0],
+#         'focus.point.lat': general_coordinates[1], 'boundary.country': country}
+#
+#         query = requests.get(geosearch_URL, params=query_paramaters).json()
+#         coordinates = query['features'][0]['geometry']['coordinates']
+#         return f'{str(coordinates[0])},{str(coordinates[1])}'
+#
+#     except:
+#         print('Error: Location not found')
 
 
 # Uses coordinates for both the beginning and ending locations to retreive and display directions to travel from point A to point B.
@@ -86,9 +85,9 @@ def get_directions(end):
 # general_coordinates_2 = get_general_location_coordinates('Wisconsin', 'Green bay')
 # print(get_directions(general_coordinates_1, general_coordinates_2))
 
-general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
-specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
-print(specific_coordinates_1)
+# general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
+# specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
+# print(specific_coordinates_1)
 
 
 """
