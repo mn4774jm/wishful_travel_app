@@ -5,28 +5,15 @@ from db_config import db_path
 #
 def search_for_city_in_cache(city):
     with sqlite3.connect(db_path) as conn:
-        # conn.row_factory = sqlite3.Row
         data = conn.execute("SELECT * FROM cache WHERE city= (?)", (city,))
-        # conn.close()
         return data.fetchone()
 
 
-def add_to_cached_data():
+def add_to_cached_data(api_name, city, data):
     with sqlite3.connect(db_path) as conn:
-        conn.execute('insert into cache values (NULL,?,?,?,?)', )
+        conn.execute('insert into cache values (NULL,?,?,?,?)', (api_name, city, data, datetime.now()))
+        conn.commit()
 
 
 
-# Delete when no longer needed
 
-# api_name = 'yelp'
-# city = 'Minneapolis'
-# data = 'I\'m json data!'
-# # conn = sqlite3.connect(db_path)
-# # conn.execute('insert into cache values (NULL, ?, ?, ?, ?)', (api_name, city, data, datetime.now()))
-# # conn.commit()
-# new_city = "Minneapolis"
-# new_data = search_for_city_in_cache(city)
-# for row in new_data:
-#     print(row)
-# print(new_data)

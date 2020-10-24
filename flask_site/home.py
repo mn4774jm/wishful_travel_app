@@ -10,7 +10,7 @@ from API.ors_api import get_general_location_coordinates, get_directions
 from flask import Blueprint, render_template, request
 from flask_site.db import get_db
 from helper_functions import restaurant_formatter, direction_formatting, get_coords
-from db_calls import search_for_city_in_cache
+from db_calls import search_for_city_in_cache, add_to_cached_data
 
 # Blueprint is used by __init__.py to import the page renderings into the app
 # Also used to set up the url
@@ -36,6 +36,7 @@ def search():
             cache_data = search_for_city_in_cache(city)
             if cache_data is None:
                 page_id, page_data = get_city_info(city, state)
+                add_to_cached_data()
                 session_url = get_page_url(page_id)
                 posts = get_restaurants_for_location(f'{city},{state}')
                 data = get_coords(posts)
@@ -43,6 +44,7 @@ def search():
                 end = get_general_location_coordinates(state,city)
                 route = get_directions(data)
                 directions = direction_formatting(route)
+
 
                 if page_id is not False and posts is not None and end is not None:
                     # perfect world rendering. Runs when data is returned correctly.
