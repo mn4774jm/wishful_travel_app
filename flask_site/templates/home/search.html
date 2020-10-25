@@ -17,7 +17,7 @@
     <input type="submit" value="Submit">
   </form>
 <form>
-  <h1>{{ city_name }}</h1>
+  <h1>{{ city_name }}{{ state_name }}</h1>
   {% for post in posts %}
   {{ post }}
   {% endfor %}
@@ -30,6 +30,14 @@
   {% for post in food %}
     <li>{{ post }}</li>
     <a></a>
+  {% endfor %}
+    </ul>
+</form>
+<form>
+  <h1>{{ dir_banner }}</h1>
+  <ul>
+  {% for dir in routes %}
+    <li>{{ dir }}</li>
   {% endfor %}
     </ul>
 </form>

@@ -17,3 +17,17 @@ CREATE TABLE post (
     body TEXT NOT NULL,
     FOREIGN KEY (author_id) REFERENCES user (id)
 );
+
+CREATE TABLE cache (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    api_name CHAR NOT NULL,
+    city CHAR NOT NULL,
+    data CHAR NOT NULL
+
+);
+
+CREATE TABLE bookmarks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+--     Build specific data here
+
+)
