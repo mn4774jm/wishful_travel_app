@@ -65,7 +65,7 @@ def update_restaurant():
 
     conn.close(
 
-def delete_state():
+def delete_state(state):
     with sqlite3.connect(db) as conn:
         conn.execute('DELETE from yelp WHERE name = ? ', (state, ) )
     conn.close()
