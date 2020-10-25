@@ -17,7 +17,7 @@ def create_table():
     conn.close()
 
 #query database to look up information on specific places
-def search_for_restaurantsgi(term, location):
+def search_for_restaurants(term, location):
     with sqlite3.connect(db) as conn:
         conn.execute("SELECT * FROM yelp WHERE term=  ?, location=?", (term, location))
         return conn.fetchall()
