@@ -22,12 +22,13 @@ def search_for_restaurants(term, location):
         conn.execute("SELECT * FROM yelp WHERE term=  ?, location=?", (term, location))
         return conn.fetchall()
     
-
-def insert_example_info():#insert location
+    #Add new city and state to yelp table
+def insert_example_info():
      with sqlite3.connect(db) as conn:
          conn.execute("INSERT INTO yelp(city, state) VALUES(?,?) ", (city, state))
      conn.close()
 
+    #Show all data by row in yelp table
 def display_all_data():
     conn = sqlite3.connect(db)
     results = conn.execute('SELECT * FROM yelp')
@@ -60,23 +61,23 @@ def update_restaurant():
    
     with sqlite3.connect(db) as conn:
         conn.execute('UPDATE yelp SET restaurant = ? WHERE id = ? '),
-        (update_restaurant,update_restaurant)
+        (update_restaurant, update_id)
 
     conn.close(
 
-# #def delete_state():
-#     with sqlite3.connect(db) as conn:
-#         conn.execute('DELETE from yelp WHERE name = ? ', (delete_state, ))
-#     conn.close()
+def delete_state():
+    with sqlite3.connect(db) as conn:
+        conn.execute('DELETE from yelp WHERE name = ? ', (state, ) )
+    conn.close()
 
 create_table()
 search_for_restaurants()
-insert_example_info()
+insert_example_info('Grand Folk, ND')
 display_all_data()
 display_one_location('Chicago')
 add_new_restaurant()
 update_restaurant()
-remove_state('Maine')
+delete_state('Maine')
 
           
           
