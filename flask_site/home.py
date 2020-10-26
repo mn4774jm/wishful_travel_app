@@ -1,7 +1,7 @@
-#TODO exception handling for data returned from wiki api
-#TODO call to db to check for previous entry before consulting the api
-#TODO when no data is found from wiki api, 'extract' is the only thing returned.
-#TODO urls for restaurants are available in the yelp json data. If there is time consider working links in.
+# TODO exception handling for data returned from wiki api
+# TODO call to db to check for previous entry before consulting the api
+# TODO when no data is found from wiki api, 'extract' is the only thing returned.
+# TODO urls for restaurants are available in the yelp json data. If there is time consider working links in.
 
 from states import state_list
 from API.wiki_api import get_city_info, get_page_url
@@ -33,55 +33,45 @@ def search():
 
         if error is None:
 
-            cache_data = None
+            cache_data = search_for_city_in_cache(city)
             if cache_data is None:
-                page_id, page_data = get_city_info(city, state)
-# <<<<<<< HEAD
-#
-#                 session_url = get_page_url(page_id)
-#                 posts = get_restaurants_for_location(f'{city},{state}')
-#                 data = get_coords(posts)
-#                 res_list = restaurant_formatter(posts)
-#                 end = get_general_location_coordinates(state,city)
-#                 route = get_directions(data)
-#                 directions = direction_formatting(route)
-#
-#
-#                 if page_id is not False and posts is not None and end is not None:
-#                     # perfect world rendering. Runs when data is returned correctly.
-#                     return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
-#                                            hyperlink=session_url, hypertitle='More Info', food=res_list,
-#                                            res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
-#
-# =======
+                '''wiki'''
+                page_id, page_data, formatted_wiki_data = get_city_info(city, state)
+                add_to_cached_data('wiki', city, formatted_wiki_data)
+
                 if page_id == 'KeyError':
                     return render_template('home/search.html', states=state_list, posts=f'The API was not able to retrieve information \
                         on {city}, {state}.\nPlease check your spelling.'.split())
                 elif page_id == 'ConnectionError':
                     return render_template('home/search.html', states=state_list, posts=f'A network issue has occurred, \
                         please check your connection.'.split())
-# >>>>>>> 600e4dd5a5ee9c7e4458ba9d5c4a91ad46bc5db6
                 else:
+
                     session_url = get_page_url(page_id)
-                    posts = get_restaurants_for_location(f'{city},{state}')
-                    data = get_coords(posts)
+                    '''yelp'''
+                    posts, formatted_yelp_data = get_restaurants_for_location(f'{city},{state}')
+                    add_to_cached_data('yelp', city, formatted_yelp_data)
                     res_list = restaurant_formatter(posts)
-                    end = get_general_location_coordinates(state,city)
-                    route = get_directions(data)
+                    '''ors'''
+                    data = get_coords(posts)
+                    end = get_general_location_coordinates(state, city)
+                    route, formatted_ors_data = get_directions(data)
+                    add_to_cached_data('ors', city, formatted_ors_data)
                     directions = direction_formatting(route)
 
                     if page_id is not False and posts is not None and end is not None:
                         # perfect world rendering. Runs when data is returned correctly.
-                        return render_template('home/search.html', states=state_list, posts=page_data.split(), city_name=city, state_name=f', {state}',
-                                            hyperlink=session_url, hypertitle='More Info', food=res_list,
-                                            res_banner='Top Rated Restaurants', dir_banner='Driving Directions', routes=directions)
+                        return render_template('home/search.html', states=state_list, posts=page_data.split(),
+                                               city_name=city, state_name=f', {state}',
+                                               hyperlink=session_url, hypertitle='More Info', food=res_list,
+                                               res_banner='Top Rated Restaurants', dir_banner='Driving Directions',
+                                               routes=directions)
 
                     else:
                         # rendering of page when an error occurs in one of the api calls. reports error message to user
                         return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
             else:
                 pass
-
 
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)

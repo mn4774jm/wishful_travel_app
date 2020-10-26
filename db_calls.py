@@ -2,10 +2,11 @@
 import sqlite3
 from datetime import datetime
 from db_config import db_path
-#
+
+
 def search_for_city_in_cache(city):
     with sqlite3.connect(db_path) as conn:
-        data = conn.execute("SELECT * FROM cache WHERE city= (?)", (city,))
+        data = conn.execute("SELECT * FROM cache WHERE city= ?", (city,))
         return data.fetchone()
 
 

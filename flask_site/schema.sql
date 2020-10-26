@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS bookmarks;
 CREATE TABLE cache (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     api_name TEXT NOT NULL,
-    city TEXT NOT NULL unique,
+    city TEXT NOT NULL,
     data TEXT NOT NULL,
     entry_date TIMESTAMP NOT NULL
 );

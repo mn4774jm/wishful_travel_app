@@ -19,11 +19,12 @@ def get_city_info(city, state):
         data = requests.get(url, params=query).json()
         page_data = data['query']['pages']
         page_id = list(page_data.keys())
-        new_data = json.dumps(data)
-        return page_id[0], page_data[f'{page_id[0]}']['extract']
+        formatted_for_db_entry = json.dumps(data)
+        return page_id[0], page_data[f'{page_id[0]}']['extract'], formatted_for_db_entry
     except KeyError as err:
-        return False, err
-
+        return 'KeyError', err
+    except requests.exceptions.ConnectionError as err:
+        return 'ConnectionError', err
 
 
 def get_page_url(page_id):
