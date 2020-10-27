@@ -51,10 +51,6 @@ def convert_data_basic(data):
     return json.loads(data[0])
 
 
-# def convert_data_ors(data):
-#     data = json.loads(data[0])
-#
-#     return data
 
 
 

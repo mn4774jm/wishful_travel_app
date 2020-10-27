@@ -5,7 +5,7 @@ from API.ors_api import get_general_location_coordinates, get_directions
 from flask import Blueprint, render_template, request
 from flask_site.db import get_db
 from helper_functions import restaurant_formatter, direction_formatting, get_coords, convert_data_wiki, convert_data_basic
-from db_calls import search_for_city_in_cache, add_to_cached_data, get_data_from_cache
+from db_calls import search_for_city_in_cache, add_to_cached_data, get_data_from_cache, add_to_bookmarks
 
 # Blueprint is used by __init__.py to import the page renderings into the app
 # Also used to set up the url
@@ -16,6 +16,7 @@ bp = Blueprint('home', __name__, url_prefix='/home')
 def search():
     if request.method == 'POST':
         # request.form is a type of dict mapping
+        # if request.form['submit_button'] == 'Search':
         city = request.form['city'].title()
         state = request.form['state']
         db = get_db()
@@ -55,6 +56,7 @@ def search():
                     directions = direction_formatting(route)
 
                     if page_id is not False and posts is not None and end is not None:
+                        add_to_bookmarks(city, state, page_data.split(), res_list, directions, session_url)
                         # perfect world rendering. Runs when data is returned correctly.
                         return render_template('home/search.html', states=state_list, posts=page_data.split(),
                                                city_name=city, state_name=f', {state}',
