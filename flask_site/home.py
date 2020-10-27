@@ -4,7 +4,7 @@ from API.yelp_api import get_restaurants_for_location
 from API.ors_api import get_general_location_coordinates, get_directions
 from flask import Blueprint, render_template, request
 from flask_site.db import get_db
-from helper_functions import restaurant_formatter, direction_formatting, get_coords, convert_data_wiki, convert_data_yelp, convert_data_ors
+from helper_functions import restaurant_formatter, direction_formatting, get_coords, convert_data_wiki, convert_data_basic
 from db_calls import search_for_city_in_cache, add_to_cached_data, get_data_from_cache
 
 # Blueprint is used by __init__.py to import the page renderings into the app
@@ -70,11 +70,14 @@ def search():
                 page_id, page_data = convert_data_wiki(get_data_from_cache(city, 'wiki'))
                 session_url = get_page_url(page_id)
                 '''yelp'''
-                res_list = restaurant_formatter(convert_data_yelp(get_data_from_cache(city, 'yelp')))
+                res_list = restaurant_formatter(convert_data_basic(get_data_from_cache(city, 'yelp')))
+                '''ors'''
+                directions = direction_formatting(convert_data_basic(get_data_from_cache(city, 'ors')))
                 return render_template('home/search.html', states=state_list, posts=page_data.split(),
                                        hyperlink=session_url, hypertitle='More Info',
                                        city_name=city, state_name=f', {state}', food=res_list,
-                                       res_banner='Top Rated Restaurants')
+                                       res_banner='Top Rated Restaurants', dir_banner='Driving Directions',
+                                               routes=directions)
 
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)

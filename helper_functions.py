@@ -47,12 +47,14 @@ def convert_data_wiki(data):
     return page_id[0], page_data[f'{page_id[0]}']['extract']
 
 
-def convert_data_yelp(data):
-    # data = json.loads(json.dumps(data))
-    data = json.loads(data[0])
-    return json.loads(json.dumps(data['businesses']))
+def convert_data_basic(data):
+    return json.loads(data[0])
 
-def convert_data_ors(data):
-    pass
+
+# def convert_data_ors(data):
+#     data = json.loads(data[0])
+#
+#     return data
+
 
 
