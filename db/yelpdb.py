@@ -1,6 +1,6 @@
 import sqlite3
 #import datetime
-import yelp_api
+#import yelp_api
 
 db = 'yelp.DB_sqlite'
 #create yelp database table 
@@ -17,15 +17,15 @@ def create_table():
     conn.close()
 
 #query database to look up information on specific places
-def search_for_restaurants(term, location):
+def search_for_restaurants( location):
     with sqlite3.connect(db) as conn:
-        conn.execute("SELECT * FROM yelp WHERE term=  ?, location=?", (term, location))
+        conn.execute("SELECT * FROM yelp WHERE location=?", (location))
         return conn.fetchall()
     
     #Add new city and state to yelp table
-def insert_example_info():
+def insert_info():
      with sqlite3.connect(db) as conn:
-         conn.execute("INSERT INTO yelp(city, state) VALUES(?,?) ", (city, state))
+         conn.execute("INSERT INTO yelp values(80, 'Maine')")
      conn.close()
 
     #Show all data by row in yelp table
@@ -71,8 +71,8 @@ def delete_state(state):
     conn.close()
 
 create_table()
-search_for_restaurants()
-insert_example_info('Grand Folk, ND')
+search_for_restaurants('sushi')
+insert_info()
 display_all_data()
 display_one_location('Chicago')
 add_new_restaurant()
