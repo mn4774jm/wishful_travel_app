@@ -1,5 +1,5 @@
 import sqlite3
-import datetime
+#import datetime
 import yelp_api
 
 db = 'yelp.DB_sqlite'
