@@ -56,7 +56,7 @@ def search():
                     directions = direction_formatting(route)
 
                     if page_id is not False and posts is not None and end is not None:
-                        add_to_bookmarks(city, state, page_data.split(), res_list, directions, session_url)
+                        # add_to_bookmarks(city, state, page_data.split(), res_list, directions, session_url)
                         # perfect world rendering. Runs when data is returned correctly.
                         return render_template('home/search.html', states=state_list, posts=page_data.split(),
                                                city_name=city, state_name=f', {state}',
