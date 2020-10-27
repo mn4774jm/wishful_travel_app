@@ -51,6 +51,8 @@ def convert_data_basic(data):
     return json.loads(data[0])
 
 
+def convert_for_bookmarks_storage(data):
+    return json.dumps(data)
 
 
 

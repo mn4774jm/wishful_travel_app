@@ -12,7 +12,8 @@ yelp_url = 'https://api.yelp.com/v3/businesses/search'
 
 def get_restaurants_for_location(location):
     
-    YELP_API_KEY = os.environ.get('YELP_API_KEY')
+    # YELP_API_KEY = os.environ.get('YELP_API_KEY')
+    YELP_API_KEY = 'zwNR-_GO-ShcVj2Gc9RheHSCG4rIitXhhm5juTyEGBFExzJzxqebyhcy6wQbkMSxAO-sUzLO3RO88c86jqTn87v7Q5e4X8XgNY7Abn2-B8SK3jwFg8d9LXllPdeBX3Yx'
     if YELP_API_KEY is None:
         print('No yelp api found')
     else:

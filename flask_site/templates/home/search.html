@@ -20,7 +20,7 @@
 <form method="post">
   <h1>{{ city_name }}{{ state_name }}</h1>
   {% if city_name %}
-  <input id="bookmark" type="submit" name="submit_button" value="Bookmark?">
+  <input type="submit" name="submit_button" value="Bookmark?">
   {% for post in posts %}
   {{ post }}
   {% endfor %}

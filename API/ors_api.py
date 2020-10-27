@@ -22,7 +22,8 @@ geosearch_URL = ('https://api.openrouteservice.org/geocode/search')
 # key, start (long, lat), end (long, lat)
 directions_URL = ('https://api.openrouteservice.org/v2/directions/driving-car')
 
-ors_key = os.environ.get('ORS_API_KEY')
+# ors_key = os.environ.get('ORS_API_KEY')
+ors_key = '5b3ce3597851110001cf6248701a505f4a83471da001d266b2860ac6'
 country = 'usa'
 
 # This method uses the Structured Forward Grocode Service to get the general area of whatever is being searched for, hopefully
