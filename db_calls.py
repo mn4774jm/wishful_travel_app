@@ -2,6 +2,8 @@
 import sqlite3
 from datetime import datetime
 from db_config import db_path
+import json
+from helper_functions import restaurant_formatter
 
 
 def search_for_city_in_cache(city):
@@ -14,6 +16,19 @@ def add_to_cached_data(api_name, city, data):
     with sqlite3.connect(db_path) as conn:
         conn.execute('insert into cache values (NULL,?,?,?,?)', (api_name, city, data, datetime.now()))
         conn.commit()
+
+
+def get_data_from_cache(city, api):
+    with sqlite3.connect(db_path) as conn:
+        wiki_data = conn.execute("SELECT data FROM cache WHERE city= ? AND api_name= ?", (city, api))
+        return wiki_data.fetchone()
+
+def add_to_bookstore():
+    pass
+
+
+def get_data_from_bookstore():
+    pass
 
 
 

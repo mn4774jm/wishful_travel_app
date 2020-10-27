@@ -25,7 +25,7 @@ def get_restaurants_for_location(location):
             response = requests.get(yelp_url, params=query_params, headers=headers).json()
             # print(response)
             restaurants = response['businesses'] #results is a list
-            formatted_for_db_entry = json.dumps(restaurants)
+            formatted_for_db_entry = json.dumps(response)
             return restaurants, formatted_for_db_entry
         
         except AssertionError as e:
