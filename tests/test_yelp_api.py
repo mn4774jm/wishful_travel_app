@@ -11,6 +11,7 @@ class YelpapiTest(unittest.TestCase):
         self.a = 'state'
         self.b = 'city'
 
+         """ Testing  get restaurants() in retrieving location"""    
     def test_get_location(self):
         #Arrange
         print("Test 1: ")
@@ -19,14 +20,8 @@ class YelpapiTest(unittest.TestCase):
         #Assert
         self.assertEqual(result, self.a, self.b)
 
-
-            """ Test get restaurants() in retrieving location"""       
-    @patch('yelp_api.get_restaurants_for_location', return_value='nowhere')
-    def test_get_no_restaurants_for_location(self, mock_get_restaurants_for_location):
-        yelp_a  pi.zero_restaurants('', Minneapolis)
-        mock_get_restaurants_for_location.assert_showed()
-
-if __name__ == "__main__":
+             
+    if __name__ == "__main__":
      unittest.main()            
 
         
