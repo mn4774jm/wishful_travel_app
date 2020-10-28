@@ -59,10 +59,10 @@ def search():
                                            hyperlink=session_url, hypertitle='More Info',
                                            city_name=city, state_name=f', {state}', food=res_list,
                                            res_banner='Top Rated Restaurants', dir_banner='Driving Directions',
-                                                   routes=directions)
+                                           routes=directions)
+
 
         elif request.form['submit_button'] == 'Bookmark?':
-            # page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list, directions = heavy_lifter(city, state)
             page_id, page_data = convert_data_wiki(get_data_from_cache(city, 'wiki'))
             session_url = get_page_url(page_id)
             formatted_yelp_data = get_data_from_cache(city, 'yelp')

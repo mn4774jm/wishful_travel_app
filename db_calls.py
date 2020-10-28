@@ -2,6 +2,8 @@
 import sqlite3
 from datetime import datetime
 from db_config import db_path
+import json
+from helper_functions import restaurant_formatter, convert_data_basic
 
 
 def search_for_city_in_cache(city):
@@ -27,9 +29,30 @@ def add_to_bookmarks(city, state, wiki_entry, restaurants, directions, wiki_url)
         conn.execute('insert into bookmarks values (NULL,?,?,?,?,?,?,?)', (city, state, wiki_entry, restaurants, directions, wiki_url, datetime.now()))
         conn.commit()
 
+def get_bookmark_by_name():
+    book_names = []
+    with sqlite3.connect(db_path) as conn:
+        data = conn.execute("SELECT city FROM bookmarks")
+        for row in data:
+            data = json.loads(json.dumps(row))
+            book_names.append(data[0])
+        return book_names
 
-def get_data_from_bookstore():
-    pass
+
+def get_data_from_bookmarks(field_type, city):
+    with sqlite3.connect(db_path) as conn:
+        data = conn.execute(f"SELECT {field_type} FROM bookmarks WHERE city = ?", (city,))
+        for row in data:
+            formatted = json.loads(json.dumps(row))
+        return formatted[0]
+
+
+# get_bookmark_by_name()
+res = json.loads(get_data_from_bookmarks('restaurants','Anchorage'))
+res = convert_data_basic(res)
+# res = json.dumps(res)
+# res = json.loads(res)
+print(res)
 
 
 
