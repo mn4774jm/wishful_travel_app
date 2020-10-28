@@ -47,12 +47,6 @@ def get_data_from_bookmarks(field_type, city):
         return formatted[0]
 
 
-# get_bookmark_by_name()
-res = json.loads(get_data_from_bookmarks('restaurants','Anchorage'))
-res = convert_data_basic(res)
-# res = json.dumps(res)
-# res = json.loads(res)
-print(res)
 
 
 
