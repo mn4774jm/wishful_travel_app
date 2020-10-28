@@ -40,9 +40,7 @@ def get_coords(posts):
     return fixed_string
 
 def convert_data_wiki(data):
-    '''wiki may need to be split into two functions.
-     That way data pulled from the DB and be sent directly to through
-     the function that sets up the data for the page.'''
+
     json_data = json.loads(json.dumps(data))
     refined_scope_data = json.loads(json_data[0])
     page_data = refined_scope_data['query']['pages']
@@ -57,5 +55,7 @@ def convert_data_basic(data):
 def convert_for_bookmarks_storage(data):
     return json.dumps(data)
 
+
+# convert_data_wiki()
 
 

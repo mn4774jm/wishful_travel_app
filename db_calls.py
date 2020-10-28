@@ -1,15 +1,15 @@
-# # #TODO This is where calls to the DB should go
 import sqlite3
 from datetime import datetime
 from db_config import db_path
 import json
-from helper_functions import restaurant_formatter, convert_data_basic
+from peewee import *
 
 
 def search_for_city_in_cache(city):
     with sqlite3.connect(db_path) as conn:
         data = conn.execute("SELECT * FROM cache WHERE city= ?", (city,))
         return data.fetchone()
+
 
 
 def add_to_cached_data(api_name, city, data):
@@ -24,10 +24,15 @@ def get_data_from_cache(city, api):
         return wiki_data.fetchone()
 
 
+
 def add_to_bookmarks(city, state, wiki_entry, restaurants, directions, wiki_url):
     with sqlite3.connect(db_path) as conn:
-        conn.execute('insert into bookmarks values (NULL,?,?,?,?,?,?,?)', (city, state, wiki_entry, restaurants, directions, wiki_url, datetime.now()))
-        conn.commit()
+        try:
+            conn.execute('insert into bookmarks values (NULL,?,?,?,?,?,?,?)', (city, state, wiki_entry, restaurants, directions, wiki_url, datetime.now()))
+            conn.commit()
+        except Exception as e:
+            return 'Unable to commit to database'
+
 
 def get_bookmark_by_name():
     book_names = []
@@ -36,6 +41,7 @@ def get_bookmark_by_name():
         for row in data:
             data = json.loads(json.dumps(row))
             book_names.append(data[0])
+            book_names.sort()
         return book_names
 
 

@@ -16,7 +16,9 @@
     </select>
     <input type="submit" name="submit_button" value="Search">
   </form>
-
+{% if message %}
+<h1>{{ message }}</h1>
+{% endif %}
 <form method="post">
   <h1>{{ city_name }}{{ state_name }}</h1>
   {% if city_name %}

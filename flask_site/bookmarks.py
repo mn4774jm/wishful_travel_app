@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 from db_calls import get_data_from_bookmarks, get_bookmark_by_name
-from helper_functions import restaurant_formatter, convert_data_basic, direction_formatting
+from utility_functions import restaurant_formatter, convert_data_basic, direction_formatting
 bp = Blueprint('bookmarks', __name__, url_prefix='/bookmarks')
 import json
 
