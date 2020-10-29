@@ -2,7 +2,6 @@ import sqlite3
 from datetime import datetime
 from db_config import db_path
 import json
-from peewee import *
 
 
 def search_for_city_in_cache(city):

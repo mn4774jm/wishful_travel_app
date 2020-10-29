@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request
 from db_calls import search_for_city_in_cache
 from managers.manager_api import api_manager
 from managers.manager_cache import cache_manager
-from managers.manager_bookmark import bookmark_manager
+from managers.manager_bookmark import bookmark_create
 
 # Blueprint is used by __init__.py to import the page renderings into the app
 # Also used to set up the url
@@ -57,7 +57,7 @@ def search():
                                            routes=directions)
 
         elif request.form['submit_button'] == 'Bookmark?':
-            bookmark_manager(city, state)
+            bookmark_create(city, state)
             return render_template('home/search.html', message=f'{city}, {state} has been added to bookmarks!', states=state_list)
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)
