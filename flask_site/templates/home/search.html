@@ -23,6 +23,10 @@
   <h1>{{ city_name }}{{ state_name }}</h1>
   {% if city_name %}
   <input type="submit" name="submit_button" value="Bookmark?">
+  <!-- these won't show on the page but when the form is submitted, this data will be included  -->
+  <input type="hidden" name="city" value="{{city_name}}">
+  <input type="hidden" name="state" value="{{state_name}}">
+  
   {% for post in posts %}
   {{ post }}
   {% endfor %}

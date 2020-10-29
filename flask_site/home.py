@@ -11,15 +11,17 @@ bp = Blueprint('home', __name__, url_prefix='/home')
 
 # global variables are used so that both buttons can see the city and state needed for them to operate.
 # I should be able to initialize them at the beginning of the search function, but so far no luck.
-city = ''
-state = ''
+# the problem is that this a website with multiple customers. If I search for 'Anchorage' then city is 
+# set to Anchorage. 
+# in the meantime, someone else searches for 'Bentonville AK'. Now city is Bentonville.
+# So now if I click Bookmark, city has been set to Bentonville so I'll get Bentonville saved, not Anchorage. 
+# Generally avoid globals in web apps unless is something global to the application
+# each route handler needs to be self-contained, a request should include all the data needed to 
+# perform the request. 
 
 
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
-    # city = ''
-    # state = ''
-    global city, state
     if request.method == 'POST':
         # request.form is a type of dict mapping
         if request.form['submit_button'] == 'Search':
@@ -60,6 +62,12 @@ def search():
                                            routes=directions)
 
         elif request.form['submit_button'] == 'Bookmark?':
+            # this needs to figure out what the city is base on the request. 
+            # the request should send the city and state
+            print(request.form)  # generally avoid printing here - this is just to confirm the data is being set
+            city = request.form['city']
+            state = request.form['state']
+
             check = check_for_duplicate(city)
             if check is False:
                 return render_template('home/search.html', message=f'{city} is already in your bookmarks', states=state_list)
