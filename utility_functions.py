@@ -56,6 +56,5 @@ def convert_for_bookmarks_storage(data):
     return json.dumps(data)
 
 
-# convert_data_wiki()
 
 

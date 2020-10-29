@@ -9,8 +9,11 @@ from managers.manager_bookmark import bookmark_manager
 # Also used to set up the url
 bp = Blueprint('home', __name__, url_prefix='/home')
 
+# global variables are used so that both buttons can see the city and state needed for them to operate.
+# I should be able to initialize them at the beginning of the search function, but so far no luck.
 city = ''
 state = ''
+
 
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
@@ -54,12 +57,7 @@ def search():
                                            routes=directions)
 
         elif request.form['submit_button'] == 'Bookmark?':
-            # page_id, page_data = convert_data_wiki(get_data_from_cache(city, 'wiki'))
-            # session_url = get_page_url(page_id)
-            # formatted_yelp_data = get_data_from_cache(city, 'yelp')
-            # formatted_ors_data = get_data_from_cache(city, 'ors')
             bookmark_manager(city, state)
-            # add_to_bookmarks(city, str(state), page_data, json.dumps(formatted_yelp_data), json.dumps(formatted_ors_data), session_url)
             return render_template('home/search.html', message=f'{city}, {state} has been added to bookmarks!', states=state_list)
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)
