@@ -53,21 +53,22 @@ def search():
                                            routes=directions)
 
         elif request.form['submit_button'] == 'Bookmark?':
+            error = None
             city = request.form['city']
             state = request.form['state']
-            check = check_for_duplicate(city)
-            error = None
             if not city:
                 error = 'City is required'
             elif not state:
                 error = 'State is required'
-                if error is None:
 
-                    if check is False:
-                        return render_template('home/search.html', message=f'{city} is already in your bookmarks', states=state_list)
-                    elif check is True:
-                        bookmark_create(city, state)
-                        return render_template('home/search.html', message=f'{city} saved to bookmarks!', states=state_list)
+            if error is None:
+                check = check_for_duplicate(city)
+
+                if check is False:
+                    return render_template('home/search.html', message=f'{city} is already in your bookmarks', states=state_list)
+                elif check is True:
+                    bookmark_create(city, state)
+                    return render_template('home/search.html', message=f'{city} saved to bookmarks!', states=state_list)
 
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)
