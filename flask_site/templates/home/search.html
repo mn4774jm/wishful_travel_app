@@ -23,6 +23,8 @@
   <h1>{{ city_name }}{{ state_name }}</h1>
   {% if city_name %}
   <input type="submit" name="submit_button" value="Bookmark?">
+  <input type="hidden" name="city" value="{{city_name}}">
+  <input type="hidden" name="state" value="{{state_name}}">
   {% for post in posts %}
   {{ post }}
   {% endfor %}

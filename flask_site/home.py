@@ -9,17 +9,10 @@ from managers.manager_bookmark import bookmark_create, check_for_duplicate
 # Also used to set up the url
 bp = Blueprint('home', __name__, url_prefix='/home')
 
-# global variables are used so that both buttons can see the city and state needed for them to operate.
-# I should be able to initialize them at the beginning of the search function, but so far no luck.
-city = ''
-state = ''
-
 
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
-    # city = ''
-    # state = ''
-    global city, state
+
     if request.method == 'POST':
         # request.form is a type of dict mapping
         if request.form['submit_button'] == 'Search':
@@ -60,12 +53,21 @@ def search():
                                            routes=directions)
 
         elif request.form['submit_button'] == 'Bookmark?':
+            city = request.form['city']
+            state = request.form['state']
             check = check_for_duplicate(city)
-            if check is False:
-                return render_template('home/search.html', message=f'{city} is already in your bookmarks', states=state_list)
-            elif check is True:
-                bookmark_create(city, state)
-                return render_template('home/search.html', message=f'{city} saved to bookmarks!', states=state_list)
+            error = None
+            if not city:
+                error = 'City is required'
+            elif not state:
+                error = 'State is required'
+                if error is None:
+
+                    if check is False:
+                        return render_template('home/search.html', message=f'{city} is already in your bookmarks', states=state_list)
+                    elif check is True:
+                        bookmark_create(city, state)
+                        return render_template('home/search.html', message=f'{city} saved to bookmarks!', states=state_list)
 
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)

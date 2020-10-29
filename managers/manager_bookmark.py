@@ -25,7 +25,7 @@ def get_bookmark(city):
 
 def check_for_duplicate(city):
     check = search_bookmark_exists(city)
-    if check == None:
+    if check is None:
         return True
     else:
         return False
