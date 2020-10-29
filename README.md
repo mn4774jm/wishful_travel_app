@@ -1,7 +1,9 @@
 # Wishful Travel App
 This flask web-app is a combination of three APIs coming together to provide 
 info on cities, their top 10 restaurants, and directions from Minneapolis, MN
-to the city chosen by the user.
+to the city chosen by the user. Application also allows for the user to bookmark 
+favorite locations. The application is run in development mode and does require
+the use of libraries documented in requirements.txt.
 
 ---
 
@@ -9,15 +11,15 @@ to the city chosen by the user.
 
 ## create and activate env using:
 ### For windows:
-python -m venv env
+python -m venv env <br />
 env\Scripts\activate
 
 ### For mac/linux:
-python3 -m venv env
+python3 -m venv env <br />
 source env/bin/activate
 
 ## Install requirements and set-up environment
-1) run pip install -r requirements.txt for windows or run pip3 install -r requirements.txt
+1) run pip install -r requirements.txt for windows <br />or run pip3 install -r requirements.txt
 
 ## enter development environment
 ### Windows
@@ -34,6 +36,6 @@ source env/bin/activate
 ## initialize the database
 1) flask init-db from root
 
-## credits/source
-Flask pages and CSS built with a tutorial from © Copyright 2010 Pallets.
+## credits/sources
+Flask and CSS built with a tutorial from © Copyright 2010 Pallets.
 https://flask.palletsprojects.com/en/1.1.x/tutorial/
