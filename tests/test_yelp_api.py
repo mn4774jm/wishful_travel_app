@@ -22,10 +22,9 @@ class YelpapiTest(unittest.TestCase):
     """Checking yelp api for no locations"""
     
     @patch('requests.Response.json',return_value= {'error': {'code': 'LOCATION_NOT_FOUND', 'description':'Could not execute search, try specifying a more exact location.'}})
-     
     def test_get_no_restaurants_for_location(self, mock_get_restaurants_for_location):
-        n_location = yelp_api.get_restaurants_for_location('My location123')
-        print(n_location)
+        no_location = yelp_api.get_restaurants_for_location('My location123')
+        print(no_location)
              
     if __name__ == "__main__":
      unittest.main()            
