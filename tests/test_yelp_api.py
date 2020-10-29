@@ -1,8 +1,8 @@
 import unittest
 from unittest import TestCase
 from unittest.mock import patch
-import yelp
-import requests
+from API import yelp_api
+
 
 class YelpapiTest(unittest.TestCase):
 
@@ -14,15 +14,17 @@ class YelpapiTest(unittest.TestCase):
         #Arrange
         print("Test 1: ")
         #Action
-        result = requests.get(self.a, self.b)
+        result = yelp_api.get_restaurants_for_location('Minneapolis, MN')
         #Assert
-        self.assertEqual(result, self.a, self.b)
+        print(result)
+        self.assertIsNotNone(result, None)
     
     """Checking yelp api for no locations"""
-    @patch('yelp_api.get_restaurants_for_location', return_value='nowhere')
+    
+    @patch('requests.Response.json',return_value= {'error': {'code': 'LOCATION_NOT_FOUND', 'description':'Could not execute search, try specifying a more exact location.'}})
+     
     def test_get_no_restaurants_for_location(self, mock_get_restaurants_for_location):
-        n_location = yelp.zero_restaurants('  ')
-        mock_get_restaurants_for_location.assert_showed()
+        n_location = yelp_api.get_restaurants_for_location('My location123')
         print(n_location)
              
     if __name__ == "__main__":

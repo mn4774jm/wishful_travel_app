@@ -22,7 +22,7 @@ def get_restaurants_for_location(location):
         #Convert JSON response to Python dictionary
         try:
             response = requests.get(yelp_url, params=query_params, headers=headers).json()
-            # print(response)
+            print(response)
             restaurants = response['businesses'] #results is a list
 
             return restaurants
@@ -30,5 +30,6 @@ def get_restaurants_for_location(location):
         except AssertionError as e:
             print('Requests.get() function was not executed')
 
+#print(get_restaurants_for_location("1245awertyu"))
 
     
