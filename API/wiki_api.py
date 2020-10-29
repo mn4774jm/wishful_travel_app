@@ -37,3 +37,5 @@ def get_page_url(page_id):
         return (data['query']['pages'][f'{page_id}']['fullurl'])
     except KeyError as err:
         return False
+
+
