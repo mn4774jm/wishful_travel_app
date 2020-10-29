@@ -33,3 +33,7 @@ source env/bin/activate
 
 ## initialize the database
 1) flask init-db from root
+
+## credits/source
+Flask pages and CSS built with a tutorial from © Copyright 2010 Pallets.
+https://flask.palletsprojects.com/en/1.1.x/tutorial/
