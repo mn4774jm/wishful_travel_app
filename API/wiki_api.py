@@ -11,6 +11,7 @@ it will attempt to return only the page URL to be displayed for the User.
 
 """
 
+
 def get_city_info(city, state):
     query = {'action': 'query', 'format': 'json', 'titles': f'{city},_{state}', 'prop': 'extracts', 'exintro': '', 'explaintext': '', 'redirects': ''}
     url = 'https://en.wikipedia.org/w/api.php?'

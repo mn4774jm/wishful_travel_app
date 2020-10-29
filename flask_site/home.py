@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request
 from db_calls import search_for_city_in_cache
 from managers.manager_api import api_manager
 from managers.manager_cache import cache_manager
-from managers.manager_bookmark import bookmark_create
+from managers.manager_bookmark import bookmark_create, check_for_duplicate
 
 # Blueprint is used by __init__.py to import the page renderings into the app
 # Also used to set up the url
@@ -17,7 +17,8 @@ state = ''
 
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
-
+    # city = ''
+    # state = ''
     global city, state
     if request.method == 'POST':
         # request.form is a type of dict mapping
@@ -33,7 +34,9 @@ def search():
             if error is None:
                 cache_data = search_for_city_in_cache(city)
                 if cache_data is None:
-                    page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list, directions = api_manager(city, state)
+
+                    (page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list,
+                     directions) = api_manager(city, state)
 
                     if page_id is not False and posts is not None and end is not None:
 
@@ -57,8 +60,13 @@ def search():
                                            routes=directions)
 
         elif request.form['submit_button'] == 'Bookmark?':
-            bookmark_create(city, state)
-            return render_template('home/search.html', message=f'{city}, {state} has been added to bookmarks!', states=state_list)
+            check = check_for_duplicate(city)
+            if check is False:
+                return render_template('home/search.html', message=f'{city} is already in your bookmarks', states=state_list)
+            elif check is True:
+                bookmark_create(city, state)
+                return render_template('home/search.html', message=f'{city} saved to bookmarks!', states=state_list)
+
     # works as the base rendering for the page. Only shows the submission fields.
     return render_template('home/search.html', states=state_list)
 

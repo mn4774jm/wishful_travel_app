@@ -12,7 +12,7 @@ CREATE TABLE cache (
 
 CREATE TABLE bookmarks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    city TEXT NOT NULL,
+    city TEXT NOT NULL unique,
     state TEXT NOT NULL,
     wiki_entry TEXT NOT NULL,
     restaurants TEXT NOT NULL,

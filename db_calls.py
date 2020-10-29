@@ -10,6 +10,12 @@ def search_for_city_in_cache(city):
         return data.fetchone()
 
 
+def search_bookmark_exists(city):
+    with sqlite3.connect(db_path) as conn:
+        data = conn.execute("SELECT * FROM bookmarks WHERE city= ?", (city,))
+        return data.fetchone()
+
+
 
 def add_to_cached_data(api_name, city, data):
     with sqlite3.connect(db_path) as conn:
