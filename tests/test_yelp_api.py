@@ -31,7 +31,7 @@ class YelpapiTest(unittest.TestCase):
     @patch ('api.get_restaurants_for_location', side_effect=Exception())   
     def test_api_when_error_connecting(self, mock_request_get):
         l = yelp_api.get_restaurants_for_location('California, CA')
-        return l
+        print(l) 
 
 if __name__ == "__main__":
      unittest.main()            
