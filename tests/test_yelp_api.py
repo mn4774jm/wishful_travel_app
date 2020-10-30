@@ -25,7 +25,7 @@ class YelpapiTest(unittest.TestCase):
     def test_get_no_restaurants_for_location(self, mock_get_restaurants_for_location):
         no_location = yelp_api.get_restaurants_for_location('location')
         print(no_location)
-        self.assertIs(no_location, msg = 'Search no found')
+        self.assertIs(no_location, msg = 'Search not found')
 
     
     #Checking when API server is down
