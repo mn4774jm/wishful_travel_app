@@ -1,4 +1,4 @@
-
+# list of strings used to populate the dropdown menu on the search web page
 
 state_list = ["Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", "California", "Colorado", "Connecticut",
                "District of Columbia", "Delaware", "Florida", "Georgia", "Iowa", "Idaho", "Illinois", "Indiana",
