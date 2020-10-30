@@ -1,3 +1,5 @@
+import json
+
 
 def restaurant_formatter(posts):
     count = 0
@@ -8,7 +10,9 @@ def restaurant_formatter(posts):
         res_list.append(temp_string)
     return res_list
 
+
 def direction_formatting(steps):
+
     count = 1
     dir_list = []
     for s in steps:
@@ -34,5 +38,23 @@ def get_coords(posts):
             fixed_string = f'{lon},{lat}'
             count += 1
     return fixed_string
+
+def convert_data_wiki(data):
+
+    json_data = json.loads(json.dumps(data))
+    refined_scope_data = json.loads(json_data[0])
+    page_data = refined_scope_data['query']['pages']
+    page_id = list(page_data.keys())
+    return page_id[0], page_data[f'{page_id[0]}']['extract']
+
+
+def convert_data_basic(data):
+    return json.loads(data[0])
+
+
+def convert_for_bookmarks_storage(data):
+    return json.dumps(data)
+
+
 
 

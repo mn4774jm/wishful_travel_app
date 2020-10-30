@@ -6,13 +6,12 @@
   <h1>Wishful Thinking Travel</h1>
   <ul>
 <!--      href provides links to other pages-->
-<!--      TODO: decide whether to use separate pages for info or just put it all on the front page-->
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
     {% else %}
       <li><a href="{{ url_for('home.search') }}">Home</a>
-      <li><a href="{{ url_for('home.search') }}">Bookmarks</a>
+      <li><a href="{{ url_for('bookmarks.get_bookmarks') }}">Bookmarks</a>
 
 
     {% endif %}

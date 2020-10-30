@@ -1,5 +1,6 @@
 import requests
 import os
+import json
 
 """
 
@@ -66,7 +67,8 @@ def get_directions(end):
         query_parameters = {'api_key': ors_key, 'start': start, 'end': end}
         query = requests.get(directions_URL, params=query_parameters).json()
         steps = query['features'][0]['properties']['segments'][0]['steps']
-        return steps
+        formatted_step_data = json.dumps(steps)
+        return steps, formatted_step_data
 
     except:
         print('Error: Unable to find path')
