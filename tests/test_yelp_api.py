@@ -35,8 +35,7 @@ class YelpapiTest(unittest.TestCase):
         print(l) 
         self.assertEqual(l, msg= 'No connection from API server' )
 
-if __name__ == "__main__":
-     unittest.main()            
+     
 
         
 
