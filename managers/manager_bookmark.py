@@ -7,7 +7,7 @@ import json
 
 def bookmark_create(city, state):
     page_id, page_data = convert_data_wiki(get_data_from_cache(city, 'wiki'))
-    session_url = get_page_url(page_id)
+    error, session_url = get_page_url(page_id)
     formatted_yelp_data = get_data_from_cache(city, 'yelp')
     formatted_ors_data = get_data_from_cache(city, 'ors')
     add_to_bookmarks(city, str(state), page_data, json.dumps(formatted_yelp_data), json.dumps(formatted_ors_data),
