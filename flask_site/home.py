@@ -1,6 +1,6 @@
 from states import state_list
 from flask import Blueprint, render_template, request
-from db_calls import search_for_city_in_cache
+from db_calls import search_for_city_in_cache, check_expire_for_cache
 from managers.manager_api import api_manager
 from managers.manager_cache import cache_manager
 from managers.manager_bookmark import bookmark_create, check_for_duplicate
@@ -29,6 +29,7 @@ def search():
 
             if error is None:
                 # checks cache for previous entry as to not call the api more than necessary.
+                check_expire_for_cache()
                 cache_data = search_for_city_in_cache(city)
                 if cache_data is None:
                     # Call to api manager to facilitate api requests to wiki, yelp, and openroutesource apis; returns
