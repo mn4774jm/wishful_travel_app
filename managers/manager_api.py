@@ -7,17 +7,18 @@ from utility_functions import restaurant_formatter, direction_formatting, get_co
 from db_calls import add_to_cached_data
 import json
 
+# (page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list, directions)
 
 def api_manager(city, state):
 
-    error, api_data = get_city_info(city, state)
+    api_error, api_data = get_city_info(city, state)
     
-    if error:
-        return render_template('home/search.html', states=state_list, posts=f'{error}'.split())
+    if api_error:
+        return (None, None, None, api_error, None, None, None, None, None)
     else:
-        error, refined_data = refine_city_info(api_data)
-        if error:
-            return render_template('home/search.html', states=state_list, posts=f'{error}'.split())
+        refine_error, refined_data = refine_city_info(api_data)
+        if refine_error:
+            return (None, None, None, refine_error, None, None, None, None, None)
         else:
             page_id = refined_data.page_id
             page_data = refined_data.intro_extract
@@ -25,9 +26,9 @@ def api_manager(city, state):
 
             add_to_cached_data('wiki', city, formatted_wiki_data)
 
-            error, session_url = get_page_url(page_id)
-            if error:
-                return render_template('home/search.html', states=state_list, posts=f'{error}'.split())
+            url_error, session_url = get_page_url(page_id)
+            if url_error:
+                return (None, None, None, url_error, None, None, None, None, None)
             else:
                 posts, formatted_yelp_data = get_restaurants_for_location(f'{city},{state}')
                 add_to_cached_data('yelp', city, formatted_yelp_data)
