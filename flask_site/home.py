@@ -33,10 +33,14 @@ def search():
                 if cache_data is None:
                     # Call to api manager to facilitate api requests to wiki, yelp, and openroutesource apis; returns
                     # data needed to render page
-                    (page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list,
-                     directions) = api_manager(city, state)
+                    try:
+                        (page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list,
+                         directions) = api_manager(city, state)
+                    except ValueError as e:
+                        error = 'Unable to load page. Please check city spelling and state selection'
 
-                    if page_id is not False and posts is not None and end is not None:
+                    if not error:
+                    # if page_id is not False and posts is not None and end is not None:
 
                         # perfect world rendering. Runs when data is returned correctly.
                         return render_template('home/search.html', states=state_list, posts=page_data.split(),
@@ -47,7 +51,7 @@ def search():
 
                     else:
                         # rendering of page when an error occurs in one of the api calls. reports error message to user
-                        return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
+                        return render_template('home/search.html', states=state_list, message = error)
 
                 # If matching entry already exists in the cache data will be returned from the cache table for rendering
                 else:

@@ -1,3 +1,5 @@
+''' Files were replaced by instance database files '''
+
 # import sqlite3
 # import yelp_api
 #
