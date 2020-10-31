@@ -48,7 +48,7 @@ def search():
 
                     else:
                         # rendering of page when an error occurs in one of the api calls. reports error message to user
-                        return render_template('home/search.html', states=state_list, posts=f'{page_data}'.split())
+                        return render_template('home/search.html', states=state_list, message=page_data)
 
                 # If matching entry already exists in the cache data will be returned from the cache table for rendering
                 else:
