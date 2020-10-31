@@ -34,10 +34,10 @@ def search():
                     # Call to api manager to facilitate api requests to wiki, yelp, and openroutesource apis; returns
                     # data needed to render page
 
-                    (page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list,
+                    (page_id, posts, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list,
                      directions) = api_manager(city, state)
 
-                    if page_id is not False and posts is not None and end is not None:
+                    if page_id is not False and posts is not None:
 
                         # perfect world rendering. Runs when data is returned correctly.
                         return render_template('home/search.html', states=state_list, posts=page_data.split(),
