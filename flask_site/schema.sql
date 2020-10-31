@@ -6,8 +6,9 @@ CREATE TABLE cache (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     api_name TEXT NOT NULL,
     city TEXT NOT NULL,
+    state TEXT NOT NULL,
     data TEXT NOT NULL,
-    entry_date TIMESTAMP NOT NULL
+    expiry_date FLOAT NOT NULL
 );
 
 CREATE TABLE bookmarks (

@@ -1,6 +1,5 @@
 import json
 
-
 # function for human readable presentation conversion before being sent to the app
 def restaurant_formatter(posts):
     count = 0
