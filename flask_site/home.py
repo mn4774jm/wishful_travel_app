@@ -1,4 +1,4 @@
-from states import state_list
+from flask_site.static.states import state_list
 from flask import Blueprint, render_template, request
 from db_calls import search_for_city_in_cache, check_expire_for_cache
 from managers.manager_api import api_manager
@@ -56,7 +56,7 @@ def search():
                 # If matching entry already exists in the cache data will be returned from the cache table for rendering
                 else:
                     # call to manager to retrieve data from the cache
-                    session_url, res_list, directions, page_id, page_data = cache_manager(city)
+                    session_url, res_list, directions, page_id, page_data = cache_manager(city, state)
                     return render_template('home/search.html', states=state_list, posts=page_data.split(),
                                            hyperlink=session_url, hypertitle='More Info',
                                            city_name=city, state_name=f', {state}', food=res_list,
@@ -75,7 +75,7 @@ def search():
 
             if error is None:
                 # call to check if data is already in the bookmarks table before attempting entry
-                check = check_for_duplicate(city)
+                check = check_for_duplicate(city, state)
                 # if data is already in bookmarks table, no new entry is attempted and the user is notified
                 if check is False:
                     return render_template('home/search.html', message=f'{city} is already in your bookmarks', states=state_list)

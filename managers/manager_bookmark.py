@@ -5,6 +5,8 @@ from db_calls import add_to_bookmarks, search_bookmark_exists
 import json
 
 
+# Gets cache data for each of the api responses converts them to the appropriate datatype using json.dumps/loads,
+# before committing them to the bookmarks table
 def bookmark_create(city, state):
     page_id, page_data = convert_data_wiki(get_data_from_cache(city, 'wiki'))
     error, session_url = get_page_url(page_id)
@@ -14,6 +16,7 @@ def bookmark_create(city, state):
                      session_url)
 
 
+# responsible for getting data from the bookmarks table and returning data to be rendered in bookmarks.py
 def get_bookmark(city):
     state = get_data_from_bookmarks('state', city)
     wiki = get_data_from_bookmarks('wiki_entry', city)
@@ -23,6 +26,7 @@ def get_bookmark(city):
     return state, wiki, url, res_list, directions
 
 
+# Checks the bookmarks table for a specific city/state before allowing the user to make a new entry in the bookmarks table
 def check_for_duplicate(city):
     check = search_bookmark_exists(city)
     if check is None:

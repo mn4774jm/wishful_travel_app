@@ -20,9 +20,9 @@ def search_for_city_in_cache(city, state):
         return data.fetchone()
 
 
-def search_bookmark_exists(city):
+def search_bookmark_exists(city, state):
     with sqlite3.connect(db_path) as conn:
-        data = conn.execute("SELECT * FROM bookmarks WHERE city= ?", (city,))
+        data = conn.execute("SELECT * FROM bookmarks WHERE city= ? and state = ?", (city, state))
         return data.fetchone()
 
 
@@ -32,9 +32,9 @@ def add_to_cached_data(api_name, city, state, data):
         conn.commit()
 
 
-def get_data_from_cache(city, api):
+def get_data_from_cache(city, state, api):
     with sqlite3.connect(db_path) as conn:
-        wiki_data = conn.execute("SELECT data FROM cache WHERE city= ? AND api_name= ?", (city, api))
+        wiki_data = conn.execute("SELECT data FROM cache WHERE city= ? AND state = ? AND api_name= ?", (city, state, api))
         return wiki_data.fetchone()
 
 

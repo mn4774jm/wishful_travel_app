@@ -1,13 +1,10 @@
-from states import state_list
 from API.wiki_api import get_city_info, refine_city_info, get_page_url
 from API.yelp_api import get_restaurants_for_location
-from API.ors_api import get_general_location_coordinates, get_directions
-from flask import render_template
+from API.ors_api import get_directions
 from utility_functions import restaurant_formatter, direction_formatting, get_coords
 from db_calls import add_to_cached_data
 import json
 
-# (page_id, posts, end, page_data, formatted_yelp_data, formatted_ors_data, session_url, res_list, directions)
 
 def api_manager(city, state):
 
