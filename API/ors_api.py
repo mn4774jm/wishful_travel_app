@@ -1,17 +1,14 @@
 import requests
 import os
 import logging
+import json
 
 """
-
 Uses openrouteservice API
-
 Originally used experimental features from openrouteservice to fetch coordinates by the 'city, state' entered by the user,
 but now has a preset starting point and uses coordnates pulled from Yelp for the endpoint, which is far more accurate.
-
 All old code has been left to show my work and how the code changed over time, but has been commented out to easily show
 what is still used.
-
 """
 
 # ors_key = os.environ.get('ORS_API_KEY')
@@ -36,7 +33,7 @@ def get_directions(end):
         try:
             query = requests.get(directions_URL, params=query_parameters).json()
 
-        # Will likely catch more than error 503, but at least I can feel fairly confident that it'll catch error 503 
+        # Will likely catch more than error 503, but at least I can feel fairly confident that it'll catch error 503
         # (can't specifically test for 503 because that would require the ors servers to be offline, but works when the user if offline)
         except:
             return 'Could not contact openrouteservice API', None
@@ -59,46 +56,35 @@ def get_directions(end):
         return 'An unexpected error has been encountered', None
 
 """
-
 # This method uses the Structured Forward Grocode Service to get the general area of whatever is being searched for, hopefully
 # increasing search accuracy. The only data that gets retreived is what's in the coordinates field for the first element.
 # def get_general_location_coordinates(state, city):
-
     # key, country, region (state), locality (city)
     structured_geosearch_URL = ('https://api.openrouteservice.org/geocode/search/structured')
-
     else:
         try:
             query_paramaters = {'api_key': ors_key, 'country': country, 'region': state, 'locality': city}
             query = requests.get(structured_geosearch_URL, params=query_paramaters).json()
             coordinates = query['features'][0]['geometry']['coordinates']
             return f'{str(coordinates[0])},{str(coordinates[1])}'
-
         except:
             print('Error: Location not found')
-
 # Get hopefully more specific coordinates on a location, using coordinates obtained from the above method along with the entered place
 # and state. If a combination of the two geosearches existed in ors, it would save a number of steps. Similar to above, the only
 # retreived data is the coordinates, except it returns them sligntly formatted, to remove the brackets for use in getting directions.
 # def get_location_coordinates(place, state, general_coordinates):
-
    # key, place + state, long, lat, country
    geosearch_URL = ('https://api.openrouteservice.org/geocode/search')
-
     try:
         # Location paramaters MUST be ordered from smallest to largest area and MUST be combined for the query to function
         combined_location_terms = f'{place} {state}'
-
         query_paramaters = {'api_key': ors_key, 'text': combined_location_terms, 'focus.point.lon': general_coordinates[0],
         'focus.point.lat': general_coordinates[1], 'boundary.country': country}
-
         query = requests.get(geosearch_URL, params=query_paramaters).json()
         coordinates = query['features'][0]['geometry']['coordinates']
         return f'{str(coordinates[0])},{str(coordinates[1])}'
-
     except:
         print('Error: Location not found')
-
 Old for loop that was used to walk through each step of directions
 count = 1
 for s in steps:
@@ -107,25 +93,18 @@ for s in steps:
     direction = s['instruction']
     print(f'{count}. {direction} | {distance} miles.')
     count += 1
-
 Old code that was used to test the program while working on it
 Now all that's needed is the endpoint (longitude, latitude) for get_directions
-
 general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
 print(general_coordinates_1)
 general_coordinates_2 = get_general_location_coordinates('Wisconsin', 'Green bay')
 print(get_directions(general_coordinates_1, general_coordinates_2))
-
 general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
 specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
 print(specific_coordinates_1)
-
 general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapolis')
 specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
-
 general_coordinates_2 = get_general_location_coordinates('minnesota', 'minneapolis')
 specific_coordinates_2 = get_location_coordinates('mall of america', 'minnesota', general_coordinates_2)
-
 get_directions(specific_coordinates_1, specific_coordinates_2)
-
 """

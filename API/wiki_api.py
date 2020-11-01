@@ -42,7 +42,7 @@ def get_city_info(city, state):
         return None, data
     except ValueError as err:
         logging.error(f'JSON response error: {err}')
-        return 'Wikipedia did not return an appropriate JSON response', None
+        return None, 'Wikipedia did not return an appropriate JSON response'
 
 
 def refine_city_info(data):
