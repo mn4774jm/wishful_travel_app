@@ -19,21 +19,21 @@ def check_expire_for_cache():
 # simple query to check if city already exists in the cache to avoid making api requests more than is required
 def search_for_city_in_cache(city, state):
     with sqlite3.connect(db_path) as conn:
-        data = conn.execute("SELECT * FROM cache WHERE city= ?", (city,))
+        data = conn.execute("SELECT * FROM cache WHERE city= ? AND state = ?", (city,state))
         return data.fetchone()
 
 
 # query to check if new row already exists in the DB before attempting to create a new row in the table
 def search_bookmark_exists(city, state):
     with sqlite3.connect(db_path) as conn:
-        data = conn.execute("SELECT * FROM bookmarks WHERE city= ?", (city,))
+        data = conn.execute("SELECT * FROM bookmarks WHERE city= ? AND state = ?", (city,state))
         return data.fetchone()
 
 
 # data added to the new row includes an integer for UTC time plus an additional 30 days for the expiration date
 def add_to_cached_data(api_name, city, state, data):
     with sqlite3.connect(db_path) as conn:
-        conn.execute('insert into cache values (NULL,?,?, ?,?)', (api_name, city, data, time.time() + 43200))
+        conn.execute('insert into cache values (NULL,?,?,?,?,?)', (api_name, city, state, data, time.time() + 43200))
         conn.commit()
 
 
