@@ -1,6 +1,5 @@
 import json
 
-
 # function for human readable presentation conversion before being sent to the app
 def restaurant_formatter(posts):
     count = 0
@@ -41,7 +40,7 @@ def get_coords(posts):
             count += 1
     return fixed_string
 
-# Converts json data to string from tuple and into json. elements are then extracted for use on the page
+# Converts json data to string from tuple and into json. elements are then extracted and returned for use on the flask page
 def convert_data_wiki(data):
     json_data = json.loads(json.dumps(data))
     refined_scope_data = json.loads(json_data[0])
