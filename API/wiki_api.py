@@ -36,7 +36,8 @@ def get_city_info(city, state):
     }
 
     url = 'https://en.wikipedia.org/w/api.php?'
-
+    # Initial API info request, returning a dictionary even if the request didn't find 
+    # a proper page on wikipedia as long as there isn't an error
     try:
         data = requests.get(url, params=query).json()
         return None, data
@@ -46,9 +47,13 @@ def get_city_info(city, state):
 
 
 def refine_city_info(data):
+    # Once it's past the API, that request has to be refined, pulling out the pages data
+    # which is necessary because the key needed to get the intro extract changes to that page number
     page_data = data['query']['pages']
     page_id = list(page_data.keys())[0]
-
+    # if the request didn't find a city's wiki page, it'll return a -1 as the key
+    # so any time this happens, there is no 'extract', so a key error is avoidable.
+    # 
     if page_id == '-1':
         return 'No Wikipedia page found for this city, please check your spelling', None
     else:

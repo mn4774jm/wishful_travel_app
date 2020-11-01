@@ -1,6 +1,6 @@
 env
 *.pyc
-__pycachche__
+__pycache__
 .idea
 venv/
 instance/
