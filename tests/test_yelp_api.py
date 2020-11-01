@@ -20,7 +20,8 @@ class YelpapiTest(unittest.TestCase):
     
     @patch('requests.Response.json',return_value= {'error': {'code': 'LOCATION_NOT_FOUND', 'description':'Could not execute search, try specifying a more exact location.'}})
     def test_get_no_restaurants_for_location(self, mock_get_restaurants_for_location):
-        no_restaurants = yelp_api.get_restaurants_for_location('')
+        no_restaurants = yelp_api.get_restaurants_for_location('businesses')
+
         no_results = ''
         print(no_restaurants, no_results)
         #self.assertEqual(no_restaurants, msg = 'Search not found')
@@ -42,10 +43,7 @@ class YelpapiTest(unittest.TestCase):
             self.assertEqual(expected, actual)#AssertEqual() compares two parameters for same results
         except :
             print(Exception)
+            #return None
+   
+
      
-
-        
-
-
-
-           
