@@ -105,5 +105,5 @@ general_coordinates_1 = get_general_location_coordinates('minnesota', 'minneapol
 specific_coordinates_1 = get_location_coordinates('burger king', 'minnesota', general_coordinates_1)
 general_coordinates_2 = get_general_location_coordinates('minnesota', 'minneapolis')
 specific_coordinates_2 = get_location_coordinates('mall of america', 'minnesota', general_coordinates_2)
-get_directions(specific_coordinates_1, specific_coordinates_2) 
+get_directions(specific_coordinates_1, specific_coordinates_2)
 """
