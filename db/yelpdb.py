@@ -1,5 +1,5 @@
 import sqlite3
-import yelp_api
+from db import yelp_api
 
 db = 'yelp.DB_sqlite'
 #create yelp database table 
