@@ -37,7 +37,8 @@ def create_app(test_config=None):
     from . import home
     app.register_blueprint(home.bp)
 
-
+    from . import bookmarks
+    app.register_blueprint(bookmarks.bp)
 
 
     return app

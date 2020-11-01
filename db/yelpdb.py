@@ -1,8 +1,9 @@
+
 import sqlite3
 from db import yelp_api
 
 db = 'yelp.DB_sqlite'
-#create yelp database table 
+#create yelp database table
 def create_table():
     with sqlite3.connect(db) as conn: # connect to database
         conn.execute("""CREATE TABLE IF NOT EXISTS yelp
@@ -12,7 +13,7 @@ def create_table():
         restaurant TEXT NOT NULL,
         name TEXT NOT NULL,
         rating INTEGER,
-        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP) """)  
+        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP) """)
     conn.close()
 
 #query database to look up information on specific places
@@ -24,22 +25,22 @@ def search_for_restaurants(name):
                 cur = conn.cursor()
                 try:
                     data = conn.execute("SELECT name FROM yelp WHERE name= ?", (name),)
-                    cur.fetchall(data)    
+                    cur.fetchall(data)
                         #return conn.fetchall()
                     if data:
                         return data
                     else:
                         print("Invalid search. Try again.", error)
                 except Exception as e:
-                    return(e) 
-            conn.close()        
+                    return(e)
+            conn.close()
 
     #Insert new city and state to yelp table
 def insert_info(location):
      with sqlite3.connect(db) as conn:
          conn.execute("INSERT INTO yelp (id, city, state, restaurant, name, rating, created) VALUES (?, ? , ? , ?, ?, ?, ?", (
           location.id, location.city, location.state, location.restaurant, location.name, location.rating, location.created))
-     
+
      conn.close()
 
     #Show all data by row in yelp table
@@ -53,7 +54,7 @@ def display_all_data():
 
 def display_one_location(location):
     conn = sqlite3.connect(db)
-    results = conn.execute('SELECT FROM yelp WHERE restaurant like ?', (location,))   
+    results = conn.execute('SELECT FROM yelp WHERE restaurant like ?', (location,))
     first_row = results.fetchone()
     if first_row:
         print('First row is: ', first_row)
@@ -72,7 +73,7 @@ def add_new_restaurant():
 def update_restaurant():
     update_restaurant = 'Halloween Place'
     update_id = 500
-   
+
     with sqlite3.connect(db) as conn:
         conn.execute('UPDATE yelp SET restaurant = ? WHERE id = ? '),
         (update_restaurant, update_id)

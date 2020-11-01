@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Bookmarks{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="bookmark">City</label>
+    <select name="bookmark" id="bookmark" required>
+      {% for bookmark in books %}
+      <option value="{{ bookmark }}">{{ bookmark }}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" name="submit_button" value="Details">
+  </form>
+
+{% if wiki %}
+  <h1>{{ city }}</h1>
+  {{ wiki }}
+
+  <h1></h1>
+    <a href={{ hyperlink }}>{{ hypertitle }}</a>
+  <h1></h1>
+  <h1>{{ res_banner }}</h1>
+  <ul>
+  {% for post in food %}
+    <li>{{ post }}</li>
+    <a></a>
+  {% endfor %}
+    </ul>
+
+  <h1></h1>
+  <h1>{{ dir_banner }}</h1>
+  <ul>
+  {% for dir in routes %}
+    <li>{{ dir }}</li>
+  {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}

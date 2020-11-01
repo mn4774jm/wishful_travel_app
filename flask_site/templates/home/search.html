@@ -7,20 +7,28 @@
 {% block content %}
   <form method="post">
     <label for="city">City</label>
-    <input name="city" id="city" required>
+    <input name="city" id="city" required placeholder="Enter a city">
     <label for="state">State</label>
     <select name="state" id="state" required>
       {% for state in states %}
       <option value="{{ state }}">{{ state }}</option>
       {% endfor %}
     </select>
-    <input type="submit" value="Submit">
+    <input type="submit" name="submit_button" value="Search">
   </form>
-<form>
+{% if message %}
+<h1>{{ message }}</h1>
+{% endif %}
+<form method="post">
   <h1>{{ city_name }}{{ state_name }}</h1>
+  {% if city_name %}
+  <input type="submit" name="submit_button" value="Bookmark?">
+  <input type="hidden" name="city" value="{{city_name}}">
+  <input type="hidden" name="state" value="{{state_name}}">
   {% for post in posts %}
   {{ post }}
   {% endfor %}
+  {% endif %}
   <h1></h1>
     <a href={{ hyperlink }}>{{ hypertitle }}</a>
 </form>
