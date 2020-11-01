@@ -36,7 +36,8 @@ def api_manager(city, state):
                 # API.
                 data = get_coords(posts)
                 # end = get_general_location_coordinates(state, city)
-                route, formatted_ors_data = get_directions(data)
+                error, route = get_directions(data)
+                formatted_ors_data = json.dumps(route)
                 add_to_cached_data('ors', city, state, formatted_ors_data)
                 directions = direction_formatting(route)
 

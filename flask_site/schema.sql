@@ -6,7 +6,6 @@ CREATE TABLE cache (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     api_name TEXT NOT NULL,
     city TEXT NOT NULL,
-    state TEXT NOT NULL,
     data TEXT NOT NULL,
     expiry_date FLOAT NOT NULL
 );
