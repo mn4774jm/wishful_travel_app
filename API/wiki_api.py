@@ -12,7 +12,7 @@ refine_city_info takes that json again and will dig into it to pull out the
 page ID and the intro extract for displaying.
 
 get_page_url will use that returned page ID and shouldn't have any user input,
-it will attempt to return any errors, or None and the page URL to be displayed for the User.
+it will attempt to return value errors, or None and the page URL to be displayed for the User.
 
 """
 
@@ -53,7 +53,7 @@ def refine_city_info(data):
     page_id = list(page_data.keys())[0]
     # if the request didn't find a city's wiki page, it'll return a -1 as the key
     # so any time this happens, there is no 'extract', so a key error is avoidable.
-    # 
+    # if it passes that, there's page info to extract, turn into a response, and send back
     if page_id == '-1':
         return 'No Wikipedia page found for this city, please check your spelling', None
     else:
@@ -73,7 +73,10 @@ def get_page_url(page_id):
     }
 
     url = 'https://en.wikipedia.org/w/api.php?'
-
+    # getting the page url is really easy once we've extracted the page id required
+    # and if the user manages to swap it with a -1, then it won't try to make the request
+    # otherwise, the page id extracted from the wiki response itself will be used
+    # so there's not user error. then the response is simple and the url can be grabbed as a string
     if page_id == '-1':
         return 'An invalid page ID was used, no request was made', None
     else:
