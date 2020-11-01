@@ -27,23 +27,21 @@ class YelpapiTest(unittest.TestCase):
         self.assertEqual(no_restaurants, no_results )
 
     
-    """Checking API server when it is not responding, adminster error code 505 for server is down """
+    """Checking API server when it is not responding and flag exception for error code """
 
     @patch ('requests.Response.json', side_effect='Exception')   
     def test_api_when_error_in_connecting(self, mock_get_restaurants_for_location):
         try:
-            actual = yelp_api.get_restaurants_for_location('')
+            actual = yelp_api.get_restaurants_for_location(location= None)
             err = 'the URL returned empty or blank data'
-            msg = 'Service Unavailable'
-            if actual == '':
-                    print(err, msg)
+            if err == '':
+                    print(err, msg = 'error code 505 and Service Unavailable')
             else:
                     print('API server is working.')
             expected = ''
             self.assertEqual(expected, actual)#AssertEqual() compares two parameters for same results
         except :
-            print(err)
-
+            print(Exception)
      
 
         
