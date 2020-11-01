@@ -31,10 +31,10 @@ def add_to_cached_data(api_name, city, state, data):
         conn.execute('insert into cache values (NULL,?,?, ?, ?,?)', (api_name, city, state, data, time.time() + 43200))
         conn.commit()
 
-
+# TODO table not returning data when state argument is added to query
 def get_data_from_cache(city, state, api):
     with sqlite3.connect(db_path) as conn:
-        wiki_data = conn.execute("SELECT data FROM cache WHERE city= ? AND state = ? AND api_name= ?", (city, state, api))
+        wiki_data = conn.execute("SELECT data FROM cache WHERE city= ? AND api_name= ?", (city, api))
         return wiki_data.fetchone()
 
 

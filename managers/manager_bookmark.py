@@ -8,10 +8,10 @@ import json
 # Gets cache data for each of the api responses converts them to the appropriate datatype using json.dumps/loads,
 # before committing them to the bookmarks table
 def bookmark_create(city, state):
-    page_id, page_data = convert_data_wiki(get_data_from_cache(city, 'wiki'))
+    page_id, page_data = convert_data_wiki(get_data_from_cache(city, state, 'wiki'))
     error, session_url = get_page_url(page_id)
-    formatted_yelp_data = get_data_from_cache(city, 'yelp')
-    formatted_ors_data = get_data_from_cache(city, 'ors')
+    formatted_yelp_data = get_data_from_cache(city, state, 'yelp')
+    formatted_ors_data = get_data_from_cache(city, state, 'ors')
     add_to_bookmarks(city, str(state), page_data, json.dumps(formatted_yelp_data), json.dumps(formatted_ors_data),
                      session_url)
 
@@ -27,8 +27,8 @@ def get_bookmark(city):
 
 
 # Checks the bookmarks table for a specific city/state before allowing the user to make a new entry in the bookmarks table
-def check_for_duplicate(city):
-    check = search_bookmark_exists(city)
+def check_for_duplicate(city, state):
+    check = search_bookmark_exists(city, state)
     if check is None:
         return True
     else:
