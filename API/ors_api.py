@@ -11,8 +11,7 @@ All old code has been left to show my work and how the code changed over time, b
 what is still used.
 """
 
-# ors_key = os.environ.get('ORS_API_KEY')
-ors_key = '5b3ce3597851110001cf6248701a505f4a83471da001d266b2860ac6'
+ors_key = os.environ.get('ORS_API_KEY')
 # country = 'usa'
 
 # Uses coordinates for both the beginning and ending locations to retreive directions to travel from point A to point B.
